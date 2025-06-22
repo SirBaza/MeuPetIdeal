@@ -4,8 +4,9 @@
 
 ---
 ## Índice
-[Texto do link](#id-da-secao)
+[Como executar o projeto](#como-executar-o-projeto)
 
+[Desenvolvimento](#desenvovimento)
 ## 🚀 Tecnologias Utilizadas
 
 - Java 
