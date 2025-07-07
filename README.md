@@ -1,4 +1,3 @@
-Tr01-Documentação-(16-06-2025)
 # 🐶 MeuPetIdeal 😺
 
 > Plataforma digital que conecta ONGs e protetores de animais a pessoas interessadas em adotar um pet, promovendo a adoção responsável, segura e facilitada com auxílio de tecnologia.
