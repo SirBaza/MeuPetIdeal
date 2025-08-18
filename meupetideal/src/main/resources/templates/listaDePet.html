@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="br">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ListaDePets</title>
+    <title>Lista de Pets</title>
 </head>
 <body>
-    <h1>Em andamento...</h1>
-    <h2>Lista De Pets</h2>
+<h1>Lista de Pets</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Raça</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pet : ${pets}">
+        <td th:text="${pet.id}"></td>
+        <td th:text="${pet.nome}"></td>
+        <td th:text="${pet.raca}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p><a th:href="@{/MeuPetIdeal/cadastroPet}">Cadastrar novo pet</a></p>
 </body>
 </html>

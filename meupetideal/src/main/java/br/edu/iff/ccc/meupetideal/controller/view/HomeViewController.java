@@ -11,13 +11,13 @@ import java.util.*;
 
 
 
-
-//@RequestMapping(path = "MeuPetIdeal")
+@Controller
+@RequestMapping(path = "MeuPetIdeal")
 public class HomeViewController {
 
     @GetMapping("/home")
     public String getHome(Model model) //get por que estaremos mostrando esses animais na tela.
     {
-        return "home.html";
+        return "home.html"; // home.html
     }
 }

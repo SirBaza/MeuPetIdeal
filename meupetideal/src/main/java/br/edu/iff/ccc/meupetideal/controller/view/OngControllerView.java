@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
 @Controller
+@RequestMapping(path = "MeuPetIdeal")
 public class OngControllerView
 {
         @GetMapping("/ong")
