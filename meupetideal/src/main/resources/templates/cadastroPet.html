@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Pet</title>
+</head>
+<body>
+<h1>Cadastro de Pet</h1>
+
+<form th:action="@{/MeuPetIdeal/cadastroPet}" th:object="${pet}" method="post">
+
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}"/>
+        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color:red"></span>
+    </div>
+
+    <div>
+        <label for="raca">Raça:</label>
+        <input type="text" id="raca" th:field="*{raca}"/>
+        <span th:if="${#fields.hasErrors('raca')}" th:errors="*{raca}" style="color:red"></span>
+    </div>
+
+    <div>
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>
+
+<p><a th:href="@{/MeuPetIdeal/listaPet}">Ver lista de pets</a></p>
+
+</body>
+</html>
