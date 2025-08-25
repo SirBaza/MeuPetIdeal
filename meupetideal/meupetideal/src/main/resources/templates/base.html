@@ -1,0 +1,75 @@
+<!--cabeçalho que chama os metadados-->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head th:fragment="baseHead">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MeuPetIdeal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/homeContent.css"> <!--dúvida-->
+    <link rel="stylesheet" href="/css/listaPet.css"> <!--dúvida-->
+</head>
+
+<body>
+    <!-- Header -->
+    <header th:fragment="baseHeaderPage" class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img th:src="@{/imgs/logoSite.png}" alt="Logo do Projeto">
+                <span class="tituloSiteHeader">Meu Pet Ideal</span>
+            </div>    
+            <nav class="nav-menu">
+                <a th:href="@{/MeuPetIdeal/home}">Home</a>
+                <a th:href="@{/MeuPetIdeal/listaPet}">Pets</a> <!--estamos passando a rota do controller aqui-->
+                <a href="#">ONGs</a>
+                <a href="#">Conta</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Footer -->
+    <footer th:fragment="BaseFooterPage" class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="/imgs/logoSite.png" alt="Logo Meu Pet Ideal">
+                    <p>Obrigado por nos visitar e ajudar a causa animal.</p>
+                </div>
+                <div>
+                    <h3>Navegação</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Pets</a></li>
+                        <li><a href="#">ONGs</a></li>
+                        <li><a href="#">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Suporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright © MeuPetIdeal <br /> Criado por 
+                    <a href="#">Ana Carolina</a> e 
+                    <a href="#">Vitor Baza</a>
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

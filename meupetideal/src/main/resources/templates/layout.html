@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head th:fragment="baseHead">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MeuPetIdeal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #F9A825, #FFD54F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <header class="bg-white shadow-md sticky top-0 z-50" th:fragment="baseHeaderPage">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img th:src="@{/imgs/pet.png}" alt="Logo do Projeto">
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a class="text-gray-600 hover:text-orange-500" href="#">Home</a>
+                    <a class="text-gray-600 hover:text-orange-500" href="#">Pets</a>
+                    <a class="text-gray-600 hover:text-orange-500" href="#">ONGs</a>
+                    <a class="text-gray-600 hover:text-orange-500" href="#">Conta</a>
+                </nav>
+                <div class="flex items-center">
+                    <a class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300"
+                        href="#">Cadastre-se</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main th:fragment="HomePage">
+        <section class="text-center py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-800 leading-tight">
+                    Encontre o seu <span class="text-gradient">Amigo Perfeito</span>
+                </h1>
+                <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+                    Conectamos você a animais de estimação para adoção em ONGs e lares temporários. A sua jornada para
+                    encontrar um novo membro da família começa aqui.
+                </p>
+                <div class="mt-8 flex justify-center space-x-4">
+                    <a class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition duration-300"
+                        href="#">
+                        <i class="fab fa-apple text-xl"></i>
+                        <span>Download para iOS</span>
+                    </a>
+                    <a class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition duration-300"
+                        href="#">
+                        <i class="fab fa-android text-xl"></i>
+                        <span>Download para Android</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <img alt="Mão segurando um celular com o app MeuPetIdeal" class="rounded-3xl shadow-2xl mx-auto"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxE_zxcOFzqRr5-VPEpWM6XnRySgFCWlL5AzXKTzoeK4DqUN5dFwc-RZHMRrSlIz3HrysSF3WVwTaoFWGCJlzWU1VoWwb3C87kpOTqINHfUvHtH5oTuNz9d4GjnFWyEU6nMupRRrpYKO02u_GTw3n6S3f8AD6rIiIioSC94OTqjXI5kb83yI3oavMVahCOtIto2vFPWmUpvQsvruGDeZLbaDi_n6hC7UJDMsYo9SpW0bs147T6_oRbCTpSQAhLjtqHmNBcUAMYn5Ol" />
+            </div>
+        </section>
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800">Sobre o App</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Uma maneira simples e fácil de encontrar o
+                        seu novo melhor amigo através do nosso aplicativo.</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img alt="Celular mostrando a interface do aplicativo" class="rounded-2xl"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7B1qVREPl6SKpeqj8g0QOHVO0sYWduaCVXIxJJou9KhOUjuRb1j8qkvncs0IolQrYUuJY17j5aCiqQL10oJQeWOvpJLzL3biFJPIva82ietPxmQLWEDdHtZ6bSVuqfj0E-Y1vxpUXoi7Iux3FlcPgkQKL2ZW91OPymZ_k8ytpQ9xFJgVpmWsMvICREjdc-3D4F4xBgAwhSsv3LY-W9OcDFI9Q4b4aOIYkeFIfcNzSxzgAH3ofDoS-VYu0UQ7lcUOIS3XzqU6IW-aX" />
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="flex items-start space-x-4">
+                            <img alt="Ícone de pata" class="h-10 mt-1"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCokomnl_hif70h6izYlpxy8JxA3zW-A3YZGpoQzfnFNiQEodLeWF_Gn13LvN1w9ERoSap1HgvdjqK5qhTful_LZHId5vpDzu3xcgtR8SQIpcDvkqh-4hgYlS6ZNxgJtKahcRAOa2K9-jfofiJFdC8vqa4F5rC1knqgqn1GfaOlxaNQKOJIHIsdhQ3jMy7EF_QjNL6DDbeL9mHic7Q3kcf0WT5MTl29aevH3QqKk10JjYWD8fqR2Tp685pRy8krXkDlbQZtMvaoABHQ" />
+                            <div>
+                                <h3 class="text-3xl font-bold text-gray-800">Uma plataforma completa para adoção de pets
+                                </h3>
+                                <p class="mt-4 text-gray-600">O MeuPetIdeal é a ponte entre você e seu futuro
+                                    companheiro. Explore perfis de animais, converse com ONGs e encontre o pet que mais
+                                    combina com você e sua família. Tudo em um só lugar.</p>
+                                <a class="mt-6 inline-block bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition duration-300 font-semibold"
+                                    href="#">SAIBA MAIS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-orange-500 text-white py-16">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <h2 class="text-5xl font-bold">36.780+</h2>
+                        <span class="text-xl">Downloads</span>
+                    </div>
+                    <div>
+                        <h2 class="text-5xl font-bold">6.510+</h2>
+                        <span class="text-xl">Usuários Ativos</span>
+                    </div>
+                    <div>
+                        <h2 class="text-5xl font-bold">4.149+</h2>
+                        <span class="text-xl">Pets Adotados</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20">
+            <div class="container mx-auto px-6 space-y-16">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img alt="Ilustração de um mapa com um pino de localização e um pet" class="rounded-2xl"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXOeWkXaVvLhrRUdx88zAulEQDLES_w-hBLcxWgAtsP8qkZcnoeNDRCP4Av4nj92qFvrA51Rif92gdTe-hICCeMpo0h4nVb_UWUlrV1A35FI787z839_gWpNoFujgEEtsmP9pUGgQEZhbhq26XaaeniSJ-HlhgjcDHLboEmCeofAPSbOiWXu1krk8cxPaA_uaWmdY_PAwTCqgmsliaaIhHvLVmO8zsEdAOCbPSzTFlAQ-lT3EHMjQIEWpjkgi02mBMRTPDoZv97HMU" />
+                    </div>
+                    <div class="md:w-1/2">
+                        <h2 class="text-4xl font-bold text-gray-800">Sistema de Geolocalização</h2>
+                        <p class="mt-4 text-lg text-gray-600">Encontre pets para adoção perto de você. Nosso sistema de
+                            geolocalização facilita a busca por animais em sua região, conectando você a abrigos e ONGs
+                            locais.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img alt="Ilustração de pessoas cuidando de animais em uma ONG" class="rounded-2xl"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfCOAilWxz3gRDGl4CpCcriQfSk2akO1RR9CDZLIrDsuAirz6zp3X-fZjbvXWwWiBzM4agmH1gq-5irM57mM2bc1lhjdn6UC_VtgSoeONtZIM4MJ5DJ2FjGpAuxpJjL8cHvDDn7qQtoPSPwZiwrpgL__sgSrWbjQv1-Hny_QhddUJsIY9ehgSEP33yTuhHgFBktdqzKfMX9Z5Vd4xzgNyY0xKzUVdnHYI3JW8QoS2sjxjsaU4PbuYu2aX6MIT-B4s2eO2qiChMUAj7" />
+                    </div>
+                    <div class="md:w-1/2">
+                        <h2 class="text-4xl font-bold text-gray-800">Acompanhamento de ONGs e Lares Temporários</h2>
+                        <p class="mt-4 text-lg text-gray-600">Tenha acesso a informações detalhadas sobre as ONGs e
+                            lares temporários parceiros. Acompanhe o trabalho incrível que eles fazem e apoie a causa
+                            animal.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img alt="Ilustração de um cadeado simbolizando segurança" class="rounded-2xl"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJYkX_MXXR5oFGKeHPDOYUdxjKviZcJcgt-BMusfSL5GcUwm_CROenhOI_LOqXtsKd5_pgR4CjjZwKQq-NnIdW3G0HeNkEw5MP_23mX_hr45wig5fdrR-C__7lQrXdlOhsr5zvyxEGu1X3I6OIkLbK18CXD-t8goduqt3ecdctQds1G2UUVy2djWQhjacEQ--aey7rEMguVG8s1Gh-wW7rn4YOQfZmg9AByufzgGisukt4rUExoqpcKnL8xoxrIz3yKcY8SfnkKCUZ" />
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-comments text-3xl text-orange-500"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-800">Comunicação Segura</h2>
+                        <p class="mt-4 text-lg text-gray-600">Converse com ONGs e responsáveis pelos pets através de um
+                            chat seguro e integrado ao aplicativo, garantindo a privacidade e a segurança de todos os
+                            envolvidos no processo de adoção.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800">Conheça Alguns <span
+                            class="text-gradient">Amigos</span></h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Esses são alguns dos pets que esperam por um
+                        lar. Quem sabe um deles não conquista o seu coração?</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
+                        <img alt="Cachorro caramelo sorrindo" class="w-full h-64 object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8vC8J-BgppaBih445UPFcJ2XWq9p4T8BMIk0dH0fYi5cdouj7w85pyzpHkXOlXuF3eVz-EVpkwsCQdM6ZJG_S2NYTvYq1ZC5fXIb-3Pipe4rEOvlThj5-p5HWjxwFNpt8dK-NzEqdVD8shpmCaKTgEU939O0a7gokfTnKJdeGx4Tyumr4aP_SIRNh1l563K0MO5gny8pIPsMX8B9mWZepXv3jIO8hnVhzFvl141idIsuzER1w6gYxNkBxoMxdsm1hJ8ZlqUydLtXf" />
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-800">Rex</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
+                        <img alt="Gato filhote deitado" class="w-full h-64 object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYTukiYoMSe49CDTi2FN8RYEgvEnfuc3FwOerVE4b51Q9tuzFq6PZscdwVe0jqXDxiPFbdw-XiTwi9_45P8g58jJp4-gGkGFiElUbHL04I800Qjgaw4Ch6Uy6JH21Pi5w7vVPbhmw5Do95zWdmecXJ6IKzU_8qxqOR6V5XyX3wvvbRN5HtuOFIqAfTzsZ7G4P0frC18ShXqpDaxa0Y1VFsHoGpCQrdjpiwdPPpJ8429WezoCiQ5vqK1NYNIuhAKyQp7wQ6DEEDl6Pa" />
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-800">Mimi</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
+                        <img alt="Cachorro de porte pequeno olhando para a camera" class="w-full h-64 object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0rh70yERbss5hlZ7UFqSt1vttwQ6EPqARjP8aHbHSKzSg7oewNFkoqw9IChs9C6fGhB2VzBzoi6C4a1KcKin-z1i7vVFAFMb7Iq2mv2gpASTQuKRk9pv8vYdHMCR1OYEcYRdarKP_YhdfWA04GA7Jr6OuuX0Y5pI2pp1iRZot1mxekgg-cRHYa3DrStuzWYOHY9LGOR-TrJUS2hBqA9xXR3FbZlQ9YrZhGSBLuJCtua3W5LBLcXyQ3DEIZmIRhmCoKKSsO9jK3pqw" />
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-800">Bolinha</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20">
+            <div class="container mx-auto px-6 max-w-2xl text-center">
+                <h2 class="text-4xl font-bold text-gray-800">Compartilhe seu <span
+                        class="text-gradient">Companheiro</span> com a Gente!</h2>
+                <p class="mt-4 text-lg text-gray-600">Seu pet foi adotado através da nossa plataforma? Envie uma foto e
+                    compartilhe a sua história de amor!</p>
+                <form class="mt-8 space-y-6">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <input
+                            class="w-full px-4 py-3 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+                            placeholder="Nome do pet" type="text" />
+                        <label
+                            class="w-full md:w-auto cursor-pointer bg-orange-100 text-orange-600 font-semibold px-4 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-200 transition duration-300"
+                            for="pet-photo">
+                            <i class="fas fa-upload"></i>
+                            <span>Envie uma Foto</span>
+                        </label>
+                        <input class="hidden" id="pet-photo" type="file" />
+                    </div>
+                    <button
+                        class="w-full bg-orange-500 text-white font-bold py-4 px-6 rounded-lg hover:bg-orange-600 transition duration-300"
+                        type="submit">Salvar História</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <main th:fragment="listaPetPage">
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                <div class="flex flex-wrap justify-between gap-3 p-4">
+                <p class="text-[#131712] tracking-light text-[32px] font-bold leading-tight min-w-72">Find Your Perfect Companion</p>
+                </div>
+                <div class="px-4 py-3">
+                <label class="flex flex-col min-w-40 h-12 w-full">
+                    <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                    <div
+                        class="text-[#6d8566] flex border-none bg-[#f1f4f1] items-center justify-center pl-4 rounded-l-lg border-r-0"
+                        data-icon="MagnifyingGlass"
+                        data-size="24px"
+                        data-weight="regular"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                            d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
+                        ></path>
+                        </svg>
+                    </div>
+                    <input
+                        placeholder="Search for pets by name, breed, or location"
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#131712] focus:outline-0 focus:ring-0 border-none bg-[#f1f4f1] focus:border-none h-full placeholder:text-[#6d8566] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                        value=""
+                    />
+                    </div>
+                </label>
+                </div>
+                <div class="flex gap-3 p-3 flex-wrap pr-4">
+                <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f1f4f1] pl-4 pr-2">
+                    <p class="text-[#131712] text-sm font-medium leading-normal">Dogs</p>
+                    <div class="text-[#131712]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                    </svg>
+                    </div>
+                </button>
+                <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f1f4f1] pl-4 pr-2">
+                    <p class="text-[#131712] text-sm font-medium leading-normal">Cats</p>
+                    <div class="text-[#131712]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                    </svg>
+                    </div>
+                </button>
+                <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f1f4f1] pl-4 pr-2">
+                    <p class="text-[#131712] text-sm font-medium leading-normal">Small Animals</p>
+                    <div class="text-[#131712]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                    </svg>
+                    </div>
+                </button>
+                <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f1f4f1] pl-4 pr-2">
+                    <p class="text-[#131712] text-sm font-medium leading-normal">Birds</p>
+                    <div class="text-[#131712]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                    </svg>
+                    </div>
+                </button>
+                </div>
+                <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDfvnsMIUlBX3ivQ5qBBMURWbIjheWBMX6c2eL04ie1aKIgwgdJqzuUHnoEiG9tTL5ew6hqIg3B-a9x-AHUZzwV_Ylrsg2fTZPuOsxzDR09HYvVYC7fiEiLxzTdf_wwYdRXQo-llzlrWNtF9A6UD7F2a54zZbpTD7ZbJQHK687FrUCY1xCgJLGbjNsUL9AA2-5TS5ZZeRe9QMtjY4uRNO-Du3GPyPUDoVO9Je6AHqB72GsI33uzadtcIJQVTKWOtd92cJhPa09rQieB");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Buddy</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Golden Retriever, 2 years old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwENk7ZWYZy7EXxYAl-Ak38H4tnu_IKNK4iMvUR5AUreP93d85FhkWe7cjfcmnG0yhJCyQf2V_Pqc-PP1KKtRHoTxNPgendwAy3X_7TpXrrSegZemmaVfqBxKwE7d5X0Af_cUgat07ag3nLCd8ym75Xx4Tso9EOaMbO6kDCRzpexdX4vdk-YIcOUFGS6HwizglZADv-yrZN1onAbRz9sBwGzKu1QS3m6XLzO8K2TZRYKSrfnHG-qHFf_bo-T1JudF7VtSvozx8UWYr");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Whiskers</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Siamese, 3 years old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcxjJjnWYTerEOzODaIvORGW1iYGWNCSh66brWedbPW1B7S3Enl1eKhVdJ54eRThUKpsM6VBO4vdpp83qFrQWpEhwnJNpzitvOqTEaFEE7YuA8MMo1G7KVtez6ihkyPRZ7DrsPVMtHByPtMOkdR4jANNq6GcNBV6Bh_uzWsP0mmT4B4UNRSve8HHdkIt5GF4_DRNfd_teIAJdn-XJsHSqVUDWvhALVZxLR4sF9KjlUTQdc3mqEsTk5pusXe-wHVgPzDagdyPIK1THr");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Chirpy</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Canary, 1 year old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC8ALvB8SYibK4s7cig2mi_pk_pR-3kwwohTyuALLlXLv3FAYUqNvPifg9rqfUwDw_nMxsyPqTURGmiyAAsDwyF0JSrW3nTTsrXrCXo04jnAt6WSXUirXmyTb1Eh2EDiU-c6G2qtCWG3pFP4t74DprC6-k4ZbTODR172Z4l9k97BR2O1emmuDmNqR5qW-c1tfThbFl--r61A_NXDOaOFbB_DOnvQq2E4y3gsbQBEhj0ahyCBx09VRND5HYIB3tBTINz89MIPY9aFHKu");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Nibbles</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Hamster, 6 months old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChkTrhfpCuNbJ3DO5bfBzoTpnj-khUUK4u9k2jeaZCMamOO61hS8B0E7dq6SdI1BA65VOupK_m1Fbd-sQcsoquxXojkBhwrN5Ngw54BPm0clUtTdzTyKwfM37BhYOT2dJEWz4VSe3ltL9M-TlmNjx-N1O8ocgonhQ6lj1dotwOl6ss7f49sFhItjiOesXq4xcPdlObXBYvffe7lsTuKLLYE1mIuyU2XIpzu7c8NWaArmqPDJHac8yZNpimnJU2dQbYexlaxNfaVuV8");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Coco</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Labrador, 4 years old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJTUq2-fDkxm7-5Zeklph1KVLy42USN09gzvnPXrZRLZBWW9SKQUoqTGeUM7mtsoUXGEhsgiaAl425cfwV0l7MEOiuOqbgr6cIXOvcKBQiXg451_wXsCi_RMW8dERto5IxTfVGh1gcbg88WtfySuzko2o7Pml9F0-Ewn8D4dNJp2X0EGEOyTdJzQUcjMIfzLCoN48fnrT3mfHahqkLGcPCZUdFxCP0rbb3Y-uUCVHJcT8rTL6-Iun5oI7zZYbV1F_gXEPVVpgLz1Ja");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Max</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Beagle, 1 year old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC3-thdcGf4RRoNroDUPnzDTYDxw1ruwXervKn8reKmG2d7jwZLjHHyG17LNkblj9SuEYm1bJDTN6LjIgo5reEr5drhg9KK8Y80YD0WS_vvJ3Fz10z8GkM3yjzHKdnUtKkbsdJ_a-ZXKOLli4_xmOxYW-Mgh0YxrVkCtTTwwli1gRMyYmPW7LYYmqt-mP1CVo5JSMZdPHvHkmAHdFq8FsYw7OC9zCt75totmYV6zBFZ_TpmtycyQpJ4NnUhxfX_XSbCk0F84bmBnlI9");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Luna</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Persian, 2 years old</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3">
+                    <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAeVM9oDbJStbbb8drC8MDyDA6XsofWuus3wJ8Syjp0VLw41IBzr2QQuwH4ZWGDPVYzC25IC-GsO_zOUZQCizdSKAwwytBkABPY7uCOBsfkTVMOCcuh1rzldZS30enzDjkHmY0V6Bv-DpgH0UA334GZaLhsmUETnNQU8G-3kQPN-DP2gEjwfFkCKPSuBjXFccHPrH2z58HYo_lZKBlVAuhS_qRvRbd10HK9IlQmvt2EeDqsQPyP5AUOd_9_m0JWs66GlSGCunWAK25J");'
+                    ></div>
+                    <div>
+                    <p class="text-[#131712] text-base font-medium leading-normal">Simba</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">Maine Coon, 5 years old</p>
+                    </div>
+                </div>
+                </div>
+                <div class="flex items-center justify-center p-4">
+                <a href="#" class="flex size-10 items-center justify-center">
+                    <div class="text-[#131712]" data-icon="CaretLeft" data-size="18px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path>
+                    </svg>
+                    </div>
+                </a>
+                <a class="text-sm font-bold leading-normal tracking-[0.015em] flex size-10 items-center justify-center text-[#131712] rounded-full bg-[#f1f4f1]" href="#">1</a>
+                <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#131712] rounded-full" href="#">2</a>
+                <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#131712] rounded-full" href="#">3</a>
+                <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#131712] rounded-full" href="#">4</a>
+                <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#131712] rounded-full" href="#">5</a>
+                <a href="#" class="flex size-10 items-center justify-center">
+                    <div class="text-[#131712]" data-icon="CaretRight" data-size="18px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path>
+                    </svg>
+                    </div>
+                </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main th:fragment="cadastroPage">
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+                <h2 class="text-[#131712] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Create an account</h2>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <input
+                    placeholder="Full name"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#131712] focus:outline-0 focus:ring-0 border-none bg-[#f1f4f1] focus:border-none h-14 placeholder:text-[#6d8566] p-4 text-base font-normal leading-normal"
+                    value=""
+                    />
+                </label>
+                </div>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <input
+                    placeholder="Email"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#131712] focus:outline-0 focus:ring-0 border-none bg-[#f1f4f1] focus:border-none h-14 placeholder:text-[#6d8566] p-4 text-base font-normal leading-normal"
+                    value=""
+                    />
+                </label>
+                </div>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <input
+                    placeholder="Password"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#131712] focus:outline-0 focus:ring-0 border-none bg-[#f1f4f1] focus:border-none h-14 placeholder:text-[#6d8566] p-4 text-base font-normal leading-normal"
+                    value=""
+                    />
+                </label>
+                </div>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <input
+                    placeholder="Confirm password"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#131712] focus:outline-0 focus:ring-0 border-none bg-[#f1f4f1] focus:border-none h-14 placeholder:text-[#6d8566] p-4 text-base font-normal leading-normal"
+                    value=""
+                    />
+                </label>
+                </div>
+                <div class="flex px-4 py-3">
+                <button
+                    class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300">
+                    <span class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300">Sign up</span>
+                </button>
+                </div>
+                <p class="text-[#6d8566] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline">Already have an account? Log in</p>
+            </div>
+        </div>
+    </main>
+    
+    <main th:fragment="listaDeOngPage">
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+                <p class="text-[#131712] tracking-light text-[32px] font-bold leading-tight min-w-72">ONGs</p>
+            </div>
+            <p class="text-[#131712] text-base font-normal leading-normal pb-3 pt-1 px-4">
+                Explore nossa rede de organizações de proteção animal dedicadas a resgatar, reabilitar e encontrar novos lares para animais em situação de risco.  
+                Cada ONG desempenha um papel vital em nossa missão de garantir que todo animal encontre um lar amoroso.  
+                Saiba mais sobre o trabalho delas e como você pode apoiar seus esforços.
+            </p>
+            <h2 class="text-[#131712] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">ONGs em Destaque</h2>
+
+            <!-- ONG 1 -->
+            <div class="p-4">
+                <div class="flex items-stretch justify-between gap-4 rounded-lg bg-white p-4 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+                <div class="flex flex-[2_2_0px] flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                    <p class="text-[#131712] text-base font-bold leading-tight">Resgate Animal Segunda Chance</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">
+                        Dedicada ao resgate e adoção de animais abandonados e negligenciados, fornecendo cuidados médicos e encontrando lares amorosos permanentes.
+                    </p>
+                    </div>
+                    <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-4 flex-row-reverse bg-[#f1f4f1] text-[#131712] text-sm font-medium leading-normal w-fit"
+                    >
+                    <span class="truncate">Saiba Mais</span>
+                    </button>
+                </div>
+                <div
+                    class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg flex-1"
+                    style='background-image: url("https://lh3.googleusercontent.com/...");'
+                ></div>
+                </div>
+            </div>
+
+            <!-- ONG 2 -->
+            <div class="p-4">
+                <div class="flex items-stretch justify-between gap-4 rounded-lg bg-white p-4 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+                <div class="flex flex-[2_2_0px] flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                    <p class="text-[#131712] text-base font-bold leading-tight">Abrigo Patas de Esperança</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">
+                        Um abrigo de política “no-kill”, focado em oferecer um refúgio seguro para animais, promovendo adoção responsável e conscientização.
+                    </p>
+                    </div>
+                    <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-4 flex-row-reverse bg-[#f1f4f1] text-[#131712] text-sm font-medium leading-normal w-fit"
+                    >
+                    <span class="truncate">Saiba Mais</span>
+                    </button>
+                </div>
+                <div
+                    class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg flex-1"
+                    style='background-image: url("https://lh3.googleusercontent.com/...");'
+                ></div>
+                </div>
+            </div>
+
+            <!-- ONG 3 -->
+            <div class="p-4">
+                <div class="flex items-stretch justify-between gap-4 rounded-lg bg-white p-4 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+                <div class="flex flex-[2_2_0px] flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                    <p class="text-[#131712] text-base font-bold leading-tight">Santuário Amigos para Sempre</p>
+                    <p class="text-[#6d8566] text-sm font-normal leading-normal">
+                        Especializado no cuidado de animais idosos e com necessidades especiais, oferecendo cuidados de longo prazo e oportunidades de adoção.
+                    </p>
+                    </div>
+                    <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-4 flex-row-reverse bg-[#f1f4f1] text-[#131712] text-sm font-medium leading-normal w-fit"
+                    >
+                    <span class="truncate">Saiba Mais</span>
+                    </button>
+                </div>
+                <div
+                    class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg flex-1"
+                    style='background-image: url("https://lh3.googleusercontent.com/...");'
+                ></div>
+                </div>
+            </div>
+
+            <h2 class="text-[#131712] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Todas as ONGs</h2>
+            <div class="px-4 py-3 @container">
+                <div class="flex overflow-hidden rounded-lg border border-[#dee4dc] bg-white">
+                <table class="flex-1">
+                    <thead>
+                    <tr class="bg-white">
+                        <th class="px-4 py-3 text-left text-[#131712] w-[400px] text-sm font-medium leading-normal">
+                        Nome da ONG
+                        </th>
+                        <th class="px-4 py-3 text-left text-[#131712] w-[400px] text-sm font-medium leading-normal">
+                        Localização
+                        </th>
+                        <th class="px-4 py-3 text-left text-[#131712] w-60 text-[#6d8566] text-sm font-medium leading-normal">
+                        Contato
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="border-t border-t-[#dee4dc]">
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#131712] text-sm font-normal leading-normal">
+                        Resgate Porto Seguro
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#6d8566] text-sm font-normal leading-normal">
+                        Cidade Exemplo, Estado
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-60 text-[#6d8566] text-sm font-bold leading-normal">
+                        Contato
+                        </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dee4dc]">
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#131712] text-sm font-normal leading-normal">
+                        Abrigo Braços Acolhedores
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#6d8566] text-sm font-normal leading-normal">
+                        Vila Esperança, Estado
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-60 text-[#6d8566] text-sm font-bold leading-normal">
+                        Contato
+                        </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dee4dc]">
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#131712] text-sm font-normal leading-normal">
+                        Futuros Positivos
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#6d8566] text-sm font-normal leading-normal">
+                        Vila Nova, Estado
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-60 text-[#6d8566] text-sm font-bold leading-normal">
+                        Contato
+                        </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dee4dc]">
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#131712] text-sm font-normal leading-normal">
+                        Santuário Segunda Chance
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#6d8566] text-sm font-normal leading-normal">
+                        Metrocidade, Estado
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-60 text-[#6d8566] text-sm font-bold leading-normal">
+                        Contato
+                        </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dee4dc]">
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#131712] text-sm font-normal leading-normal">
+                        Corações de Esperança
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[400px] text-[#6d8566] text-sm font-normal leading-normal">
+                        Condado Feliz, Estado
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-60 text-[#6d8566] text-sm font-bold leading-normal">
+                        Contato
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white" th:fragment="BaseFooterPage">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <img alt="Logo Meu Pet Ideal" class="h-10 mb-4 filter invert brightness-0"
+                        src="/imgs/pet.png" />
+                    <p class="text-gray-400">Obrigado por nos visitar e ajudar a causa animal.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navegação</h3>
+                    <ul class="space-y-2">
+                        <li><a class="text-gray-400 hover:text-white" href="#">Home</a></li>
+                        <li><a class="text-gray-400 hover:text-white" href="#">Pets</a></li>
+                        <li><a class="text-gray-400 hover:text-white" href="#">ONGs</a></li>
+                        <li><a class="text-gray-400 hover:text-white" href="#">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a class="text-gray-400 hover:text-white" href="#">Termos de Uso</a></li>
+                        <li><a class="text-gray-400 hover:text-white" href="#">Política de Privacidade</a></li>
+                        <li><a class="text-gray-400 hover:text-white" href="#">Suporte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Pronto para começar?</h3>
+                    <a class="block w-full text-center bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300 mb-2"
+                        href="#">Cadastre-se</a>
+                    <a class="block w-full text-center bg-gray-700 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition duration-300"
+                        href="#">Fale Conosco</a>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-center md:text-left">Copyright © MeuPetIdeal <br /> Criado por <a
+                        class="text-orange-400 hover:underline" href="#">Ana Carolina</a> e <a
+                        class="text-orange-400 hover:underline" href="#">Vitor Baza</a></p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
