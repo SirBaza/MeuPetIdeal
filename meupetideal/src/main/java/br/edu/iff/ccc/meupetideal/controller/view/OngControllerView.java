@@ -12,7 +12,7 @@ public class OngControllerView
         @GetMapping("/ong")
         public String getListaOng(Model model)
         {
-            return "listaDeOng.html";
+            return "listaDeOngBaza.html";
 
         }
 
