@@ -11,6 +11,9 @@
     <link href="/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/homeContent.css"> <!--dúvida-->
     <link rel="stylesheet" href="/css/listaPet.css"> <!--dúvida-->
+    <link rel="stylesheet" href="/css/listaOng.css">
+    <link rel="stylesheet" href="/css/informacoesOng.css">
+    <link rel="stylesheet" href="/css/cadastroOng.css">
 </head>
 
 <body>
@@ -24,8 +27,9 @@
             <nav class="nav-menu">
                 <a th:href="@{/MeuPetIdeal/home}">Home</a>
                 <a th:href="@{/MeuPetIdeal/listaPet}">Pets</a> <!--estamos passando a rota do controller aqui-->
-                <a href="#">ONGs</a>
-                <a class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300"href="#">Cadastre-se</a>
+                <a th:href="@{/MeuPetIdeal/ong}">ONGs</a>
+                <a th:href="@{/MeuPetIdeal/cadastroPet}">Cadastro Pet</a>
+                <a th:href="@{/MeuPetIdeal/cadastroOng}">Cadastro Ong</a>
             </nav>
         </div>
     </header>

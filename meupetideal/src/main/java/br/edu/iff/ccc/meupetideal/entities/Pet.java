@@ -7,11 +7,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
-//import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-//import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import br.edu.iff.ccc.meupetideal.entities.Ong;
 
 @Entity
 public class Pet implements Serializable {
@@ -27,7 +29,7 @@ public class Pet implements Serializable {
 
 
     
-    @NotEmpty(message = "O nome é obrigatório")
+    @NotEmpty(message = "O nome é obrigatório!")
     @Size(min = 2, max = 50)
     private String nome;
 
@@ -39,23 +41,32 @@ public class Pet implements Serializable {
     @NotEmpty(message = "A descrição é obrigatória!")
     private String descricao;
 
-    @Min(value = 0, message = "A idade não pode ser negativa")
+    @Min(value = 0, message = "A idade não pode ser negativa!")
     private int idade; // Idade em anos
     
-    @NotEmpty(message = "A descrição é obrigatória!")
-    private String ong;
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "ong_id", nullable = false)
+    private Ong ong;
+
+    @NotEmpty(message = "O tipo é obrigatório!")
+    private String tipo;
     
+    
+    private String foto;
 
     public Pet() {
         // Default constructor
     }
 
-    public Pet(String nome, String raca, String descricao, int idade, String ong) {
+    public Pet(String nome, String raca, String descricao, int idade, Ong ong, String tipo, String foto) {
         this.nome = nome;
         this.raca = raca;
         this.descricao = descricao;
         this.idade = idade;
         this.ong = ong;
+        this.tipo = tipo;
+        this.foto = foto;
     }
 
     public String getNome() {
@@ -100,12 +111,33 @@ public class Pet implements Serializable {
         this.idade = idade;
     }
 
-    public String getOng() {
+    public Ong getOng() {
         return ong;
     }
 
-    public void setOng(String ong) {
+
+    public void setOng(Ong ong) {
         this.ong = ong;
+    }
+
+    public String getTipo()
+    { 
+        return tipo;
+    }
+
+    public void setTipo(String tipo)
+    {
+        this.tipo = tipo;
+    }
+    
+    public String getFoto()
+    {
+        return foto;
+    }
+
+    public void setFoto(String foto)
+    {
+        this.foto = foto;
     }
 
     @Override

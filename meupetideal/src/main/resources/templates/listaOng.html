@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: baseHead}">
+  <link rel="stylesheet" th:href="@{/css/listaOng.css}">
+</head>
+<body>
+<header th:replace="~{base :: baseHeaderPage}"></header>
+
+<main>
+  <div class="containerListaOng">
+    <div class="layout-contentListaOng">
+      <div class="headerListaOng">
+        <p class="titleListaOng">Encontre ONGs parceiras</p>
+      </div>
+
+      <!-- Barra de busca -->
+      <div class="search-boxListaOng">
+        <form th:action="@{/MeuPetIdeal/ong}" method="get" class="search-formListaOng">
+          <div class="search-input-wrapperListaOng">
+            <input name="pesquisa" placeholder="Procure ONGs por nome, cidade ou atuação" th:value="${pesquisa}" />
+            <button type="submit">Buscar</button>
+          </div>
+          <!-- mantém filtros selecionados ao buscar -->
+          <input type="hidden" name="cidade" th:value="${cidade}" />
+          <input type="hidden" name="atuacao" th:value="${atuacao}" />
+        </form>
+      </div>
+
+    <!-- filtros rápidos (gera links que definem 'cidade') -->
+      <div class="filter-buttonsListaOng">
+        <a th:href="@{/MeuPetIdeal/ong(cidade='São Paulo')}" class="filter-btnListaOng">São Paulo</a>
+        <a th:href="@{/MeuPetIdeal/ong(cidade='Rio de Janeiro')}" class="filter-btnListaOng">Rio de Janeiro</a>
+        <a th:href="@{/MeuPetIdeal/ong(cidade='Minas Gerais')}" class="filter-btnListaOng">Minas Gerais</a>
+        <a th:href="@{/MeuPetIdeal/ong}" class="filter-btnListaOng">Todas as regiões</a>
+      </div>
+
+      <!-- Lista de ONGs -->
+      <div class="lista-ongs-grid">
+        <div th:each="ong : ${ongs}">
+          <a class="ong-card" th:href="@{/MeuPetIdeal/informacoesOng/{id}(id=${ong.id})}">
+            
+            <img class="ong-image"
+            th:src="${ong.imagem}"
+            th:alt="${ong.nome}"
+            alt="Imagem ONG"/>
+
+            <h3 th:text="${ong.nome}">Nome ONG</h3>
+            <p><b>Cidade:</b> <span th:text="${ong.endereco}">Cidade</span></p>
+            <!-- contatos/descricao fictícios — pode ajustar para dados reais -->
+            <p><b>Telefone:</b> <span th:text="${ong.telefone}">(sem telefone)</span></p>
+            <p><b>Email:</b> <span th:text="${ong.email}">(sem email)</span></p>
+            <p th:text="${ong.descricao}">Descrição fictícia da ONG. Pode ajustar para dados reais.</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Paginação -->
+      <div class="paginationListaOng">
+        <a href="#" class="nav-btnListaOng">...</a>
+        <a class="pageListaOng" href="#">1</a>
+        <a class="pageListaOng" href="#">2</a>
+        <a class="pageListaOng" href="#">3</a>
+        <a href="#" class="nav-btnListaOng">...</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{base :: BaseFooterPage}"></footer>
+</body>
+</html>

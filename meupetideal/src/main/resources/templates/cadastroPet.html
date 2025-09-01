@@ -10,8 +10,11 @@
             <div class="container">
                 <h2>Cadastro de Pet para Adoção</h2>
 
-                <!-- Corrigido: adicionado th:object="${pet}" -->
-                <form th:action="@{/cadastroPet}" th:object="${pet}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/MeuPetIdeal/cadastroPet}" 
+                th:object="${pet}" 
+                method="post" 
+                enctype="multipart/form-data">
+                
 
                     <div>
                         <label for="nome">Nome:</label>
@@ -37,12 +40,24 @@
                         <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" style="color:red"></span>
                     </div>
                     
-                    
-
                     <div>
                         <label for="ong">ONG Responsável:</label>
-                        <input type="text" id="ong" th:field="*{ong}"/>
+                        <select id="ong" th:field="*{ong.id}" required>
+                        <option value="">Selecione uma ONG</option>
+                        <option th:each="o : ${ongs}" th:value="${o.id}" th:text="${o.nome}"></option>
+                        </select>
                         <span th:if="${#fields.hasErrors('ong')}" th:errors="*{ong}" style="color:red"></span>
+                    </div>
+
+                    <div>
+                        <label for="tipo">Tipo:</label>
+                        <input type="text" id="tipo" th:field="*{tipo}"/>
+                        <span span th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}" style="color:red"></span>
+                    </div>
+
+                    <div>
+                        <label for="foto">Insira a foto:</label>
+                        <input type="file" id="foto" name="foto" accept="image/*"/> <!--Tipo de input que recebe arquivo, mas que só aceita arquivos de imagem.-->
                     </div>
                     
                     <div>

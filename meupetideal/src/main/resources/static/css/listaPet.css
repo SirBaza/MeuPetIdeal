@@ -146,3 +146,21 @@
   align-items: center;
   justify-content: center;
 }
+
+.botaoDeletarlistaDePet{
+display:inline-block; 
+padding:8px 12px; 
+background-color:red; 
+color:white; 
+border-radius:5px; 
+text-decoration:none;
+}
+
+.botaoEditarlistaDePet{
+display:inline-block; 
+padding:8px 12px; 
+background-color:rgb(255, 196, 70); 
+color:white; 
+border-radius:5px; 
+text-decoration:none;
+}

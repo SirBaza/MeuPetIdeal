@@ -1,9 +1,15 @@
 package br.edu.iff.ccc.meupetideal.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.iff.ccc.meupetideal.entities.Pet;
 
@@ -13,82 +19,116 @@ public class PetService {
     private final ArrayList<Pet> pets = new ArrayList<>(); 
     private final AtomicLong idGenerator = new AtomicLong(1);
     
-    public void salvarPet(Pet pet) {
-        // Implement the logic to save the Pet
-        // This could involve saving to a database or any other storage
-        System.out.println("ID: " + pet.getId() + ", Nome: " + pet.getNome() + ", Raça: " + pet.getRaca());
-    }
-
+   
     public Pet buscarPetPorId(Long id) {
-        // Implement the logic to find a Pet by its ID
-        // This could involve querying a database or any other storage
-        //Esse objeto Pet vai guardar 
-        Pet pet = new Pet();
-
-        if(id == null) {
-            return null; // or throw an exception
+        for (Pet pet : pets) {
+            if (pet.getId().equals(id)) {
+                return pet;
+            }
         }
-        // Simulating a found Pet for demonstration purposes
-        pet.setId(id);
-        pet.setNome("Pet Exemplo");
-        pet.setRaca("Raça Exemplo");
-        return pet;
+        return null;
     }
 
-    public ArrayList<Pet> listarPets() {
-        return new ArrayList<>(pets); 
+    //método para atualizar um Pet
+    public Pet atualizarPet(Long id, Pet novosDados, MultipartFile foto) throws IOException {
+    for (Pet pet : pets) {
+        if (pet.getId().equals(id)) {
+            pet.setNome(novosDados.getNome());
+            pet.setRaca(novosDados.getRaca());
+            pet.setDescricao(novosDados.getDescricao());
+            pet.setIdade(novosDados.getIdade());
+            pet.setOng(novosDados.getOng());
+            pet.setTipo(novosDados.getTipo());
+            if (foto != null && !foto.isEmpty()) {
+                String uploadDir = "src/main/resources/static/imgs/";
+                String fileName = foto.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir + fileName);
+                Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                pet.setFoto("/imgs/" + fileName);
+            }
+            return pet;
+        }
+    }
+    return null;
+}
+
+
+    public ArrayList<Pet> buscarPetsFiltrados(String nomeOuRacaOuTipo, String ignorar, Integer idade) {
+    ArrayList<Pet> resultado = new ArrayList<>();
+
+    for (Pet pet : pets) {
+        boolean match = false;
+
+        if (nomeOuRacaOuTipo != null && !nomeOuRacaOuTipo.isEmpty()) {
+            String buscaLower = nomeOuRacaOuTipo.toLowerCase();
+            if (pet.getNome().toLowerCase().contains(buscaLower)
+                || pet.getRaca().toLowerCase().contains(buscaLower)
+                || pet.getTipo().toLowerCase().contains(buscaLower)) {
+                match = true;
+            }
+        } else {
+            match = true; // se a busca estiver vazia, retorna todos
+        }
+
+        if (idade != null && pet.getIdade() != idade) {
+            match = false;
+        }
+
+        if (match) {
+            resultado.add(pet);
+        }
     }
 
-    public void atualizarPet(Pet pet) {
-        // Implement the logic to update an existing Pet
-        // This could involve updating a database record or any other storage
-        System.out.println("Atualizando Pet: ID: " + pet.getId() + ", Nome: " + pet.getNome() + ", Raça: " + pet.getRaca());
+    return resultado;
+}
+
+public ArrayList<Pet> filtrarPorTipo(String tipo) {
+    ArrayList<Pet> filtrados = new ArrayList<>();
+    for (Pet pet : pets) {
+        if (pet.getTipo().equalsIgnoreCase(tipo)) {
+            filtrados.add(pet);
+        }
+    }
+    return filtrados;
+}
+
+
+    //retorna todos os pets
+    public ArrayList<Pet> listarPets()
+    {
+        return pets;
     }
 
-    public Pet cadastrarPet(Pet pet) {
+    
+    public Pet cadastrarPetComFoto(Pet pet, MultipartFile foto) throws IOException {
+        // Define diretório de upload
+        String uploadDir = "src/main/resources/static/imgs";
+        Path uploadPath = Paths.get(uploadDir).toAbsolutePath();
+
+        // Cria o diretório se ele não existir
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String fileName = foto.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+
+        // Salva a imagem fisicamente
+        Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        // Salva apenas o caminho relativo no pet
+        pet.setFoto("/imgs/" + fileName);
+
+        // Gera ID e adiciona à lista fake
         pet.setId(idGenerator.getAndIncrement());
         pets.add(pet);
+
         return pet;
-    }
-
-    public void excluirPet(Long id) {
-        // Implement the logic to delete a Pet by its ID
-        // This could involve removing a record from a database or any other storage
-        System.out.println("Excluindo Pet com ID: " + id);
-    }
-
-    public ArrayList<Pet> mostrarTodosPets() {
-        // Implement the logic to show all Pets
-        // This could involve retrieving all records from a database or any other storage
-        ArrayList<Pet> pets = listarPets();
-        for (Pet pet : pets) {
-            System.out.println("ID: " + pet.getId() + ", Nome: " + pet.getNome() + ", Raça: " + pet.getRaca());
         }
-        return pets;
-    }
-    
-    public ArrayList<Pet> mostrarTodosPetsPorOng(Long ongId) {
-        // Implement the logic to show all Pets for a specific ONG
-        // This could involve filtering Pets by ONG ID
-        ArrayList<Pet> pets = listarPets();
-        for (Pet pet : pets) {
-            if (pet.getId().equals(ongId)) {
-                System.out.println("ID: " + pet.getId() + ", Nome: " + pet.getNome() + ", Raça: " + pet.getRaca());
-            }
-        }
-        return pets;
-    }
 
-    public ArrayList<Pet> mostrarTodosPetsPorRaca(String raca) {
-        // Implement the logic to show all Pets by breed
-        // This could involve filtering Pets by breed
-        ArrayList<Pet> pets = listarPets();
-        for (Pet pet : pets) {
-            if (pet.getRaca().equalsIgnoreCase(raca)) {
-                System.out.println("ID: " + pet.getId() + ", Nome: " + pet.getNome() + ", Raça: " + pet.getRaca());
-            }
+       public boolean excluirPet(Long id) {
+        return pets.removeIf(p -> p.getId().equals(id));
         }
-        return pets;
-    } 
+
 
 }

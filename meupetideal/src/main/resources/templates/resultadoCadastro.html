@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: baseHead}"></head>
+<body>
+
+    <header th:replace="~{base :: baseHeaderPage}"></header>
+
+    <main>
+        <h1>Cadastro realizado com sucesso!</h1> 
+        <p><a th:href="@{/MeuPetIdeal/cadastroPet}">Cadastrar outro pet</a></p>
+        <p><a th:href="@{/MeuPetIdeal/listaPet}">Ver lista de pets</a></p>
+    </main>
+
+    <!-- Corrigido: use exatamente o mesmo nome do fragmento no base.html -->
+    <footer th:replace="~{base :: BaseFooterPage}"></footer>
+
+</body>
+</html>
