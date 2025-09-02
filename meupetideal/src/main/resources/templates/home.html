@@ -1,11 +1,109 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="br">
-<head>
-    <meta charset="UTF-8">
-    <title>MeuPetIdeal</title>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" > <!--chama o thymeleaf, recurso de manipulação de páginas-->
+<head th:replace="~{base :: baseHead}">
 </head>
 <body>
-    <h1>Em construção...</h1>
-    <h2>Home</h2>
+    <header th:replace="~{base :: baseHeaderPage}"></header>
+    <main>
+        <!-- Apresentação -->
+        <section class="apresentacao">
+            <div class="container">
+                <h1>Encontre o seu <span class="text-gradient">Amigo Perfeito</span></h1>
+                <div class="img-logo">
+                        <img src="/imgs/logoSite.png" alt="Um cachorro mexendo no computador.">
+                </div>
+                <p>
+                    Conectamos você a animais de estimação para adoção em ONGs e lares temporários. 
+                    A sua jornada para encontrar um novo membro da família começa aqui.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sobre o projeto-->
+        <section class="sobre">
+            <div class="container">
+                <div class="text-center">
+                    <h2>Sobre o Projeto</h2>
+                    <p>Uma maneira simples e fácil de encontrar o seu novo melhor amigo através de nosso site, em Campos dos Goytacazes!</p>
+                </div>
+                <div class="sobre-conteudo">
+                    <div class="img-box">
+                        <img src="/imgs/pugLaptop.jpg" alt="Um cachorro mexendo no computador.">
+                    </div>
+                    <div class="texto-box">
+                        <h3>Uma plataforma completa para adoção de pets</h3>
+                        <p>O MeuPetIdeal é a ponte entre você e seu futuro companheiro. Explore perfis de animais, converse com ONGs e encontre o pet que mais combina com você e sua família. Tudo em um só lugar.</p>
+                        <a href="#" class="btn">SAIBA MAIS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÉTRICAS -->
+        <section class="metricas">
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <h2>1000+</h2>
+                        <span>Acessos</span>
+                    </div>
+                    <div>
+                        <h2>100+</h2>
+                        <span>ONGs</span>
+                    </div>
+                    <div>
+                        <h2>200+</h2>
+                        <span>Pets Adotados</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGs -->
+        <section class="ongs">
+            <div class="container">
+                <div class="ongs-conteudo">
+                    <div class="img-box">
+                        <img src="/imgs/desenhoIlustra.jpg" alt="Ilustração ONG">
+                    </div>
+                    <div class="texto-box">
+                        <h2>Acompanhamento de ONGs e Lares Temporários</h2>
+                        <p>Tenha acesso a informações detalhadas sobre as ONGs e lares temporários parceiros. Acompanhe o trabalho incrível que eles fazem e apoie a causa animal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PETS -->
+        <section class="pets">
+            <div class="container">
+                <div class="text-center">
+                    <h2>Conheça Alguns <span class="text-gradient">Amigos</span></h2>
+                    <p>Esses são alguns dos pets que esperam por um lar. Quem sabe um deles não conquista o seu coração?</p>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8vC8J-BgppaBih445UPFcJ2XWq9p4T8BMIk0dH0fYi5cdouj7w85pyzpHkXOlXuF3eVz-EVpkwsCQdM6ZJG_S2NYTvYq1ZC5fXIb-3Pipe4rEOvlThj5-p5HWjxwFNpt8dK-NzEqdVD8shpmCaKTgEU939O0a7gokfTnKJdeGx4Tyumr4aP_SIRNh1l563K0MO5gny8pIPsMX8B9mWZepXv3jIO8hnVhzFvl141idIsuzER1w6gYxNkBxoMxdsm1hJ8ZlqUydLtXf" alt="Cachorro caramelo sorrindo">
+                        <h3>Rex</h3>
+                    </div>
+                    <div class="card">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYTukiYoMSe49CDTi2FN8RYEgvEnfuc3FwOerVE4b51Q9tuzFq6PZscdwVe0jqXDxiPFbdw-XiTwi9_45P8g58jJp4-gGkGFiElUbHL04I800Qjgaw4Ch6Uy6JH21Pi5w7vVPbhmw5Do95zWdmecXJ6IKzU_8qxqOR6V5XyX3wvvbRN5HtuOFIqAfTzsZ7G4P0frC18ShXqpDaxa0Y1VFsHoGpCQrdjpiwdPPpJ8429WezoCiQ5vqK1NYNIuhAKyQp7wQ6DEEDl6Pa" alt="Gato filhote deitado">
+                        <h3>Mimi</h3>
+                    </div>
+                    <div class="card">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0rh70yERbss5hlZ7UFqSt1vttwQ6EPqARjP8aHbHSKzSg7oewNFkoqw9IChs9C6fGhB2VzBzoi6C4a1KcKin-z1i7vVFAFMb7Iq2mv2gpASTQuKRk9pv8vYdHMCR1OYEcYRdarKP_YhdfWA04GA7Jr6OuuX0Y5pI2pp1iRZot1mxekgg-cRHYa3DrStuzWYOHY9LGOR-TrJUS2hBqA9xXR3FbZlQ9YrZhGSBLuJCtua3W5LBLcXyQ3DEIZmIRhmCoKKSsO9jK3pqw" alt="Cachorro pequeno olhando para câmera">
+                        <h3>Bolinha</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="botaoCadastreSeuPet">
+                 <a th:href="@{/MeuPetIdeal/cadastroPet}">Cadastre seu Pet</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer th:replace="~{base :: BaseFooterPage}"></footer>
 </body>
 </html>

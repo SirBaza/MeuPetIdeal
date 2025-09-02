@@ -1,29 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Pets</title>
-</head>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: baseHead}"></head>
 <body>
-<h1>Lista de Pets</h1>
+<header th:replace="~{base :: baseHeaderPage}"></header>
+<main>
+    <div class="containerListaPet">
+      <div class="layout-contentListaPet">
+        <div class="headerListaPet">
+          <p class="titleListaPet">Encontre seu novo amigo!</p>
+        </div>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Raça</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pet : ${pets}">
-        <td th:text="${pet.id}"></td>
-        <td th:text="${pet.nome}"></td>
-        <td th:text="${pet.raca}"></td>
-    </tr>
-    </tbody>
-</table>
+        <!-- Barra de busca -->
+        <form th:action="@{/MeuPetIdeal/listaPet}" method="post">
+          <div class="search-boxListaPet">
+            <label class="search-labelListaPet">
+              <div class="search-input-wrapperListaPet">
+                <div class="search-iconListaPet">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                  </svg>
+                </div>
+                <input type="text"
+                       name="busca"
+                       placeholder="Procure pets por nome, raça ou tipo"
+                       class="search-inputListaPet"/>
+              </div>
+            </label>
+            <button type="submit">Buscar</button>
+          </div>
+        </form>
 
-<p><a th:href="@{/MeuPetIdeal/cadastroPet}">Cadastrar novo pet</a></p>
+        <!-- Filtros -->
+        <div class="filter-buttonsListaPet">
+          <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Cachorro'">Cachorros</button>
+          <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Gato'">Gatos</button>
+          <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Animais Pequenos'">Animais Pequenos</button>
+          <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Pássaro'">Pássaros</button>
+        </div>
+
+        <!-- Mensagem de erro -->
+        <div th:if="${mensagemErro}" style="color:red; margin:10px 0;">
+            <p th:text="${mensagemErro}"></p>
+        </div>
+
+        <!--Mostruário dos pets-->
+        <div class="lista-pets-grid" style="margin-top:20px; display:grid; grid-template-columns: repeat(auto-fill,minmax(250px,1fr)); gap:20px;">
+          <div class="pet-card" th:each="pet : ${pets}" style="border:1px solid #ccc; border-radius:12px; padding:15px;">
+            <img th:src="@{${pet.fotoUrl}}" alt="Foto de [[${pet.getNome}]]" style="width:100%; border-radius:8px;">
+            <h3 th:text="${pet.nome}">Nome do Pet</h3>
+            <p><b>Raça:</b> <span th:text="${pet.raca}">Raça</span></p>
+            <p><b>Idade:</b> <span th:text="${pet.idade}">Idade</span> anos</p>
+            <p><b>Descrição:</b> <span th:text="${pet.descricao}">Descrição</span></p>
+            <p><b>ONG:</b> <span th:text="${pet.ong.getNome}">ONG</span></p>
+            
+            <a th:href="@{/MeuPetIdeal/editarPet/{id}(id=${pet.id})}" class="botaoEditarlistaDePet">Editar Pet</a>
+
+            <form th:action="@{/MeuPetIdeal/excluirPet/{id}(id=${pet.id})}" method="post"
+            onsubmit="return confirm('Tem certeza que deseja apagar este pet?');">
+            <button type="submit" class="botaoDeletarlistaDePet">Apagar Pet</button>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- Paginação -->
+        <div class="paginationListaPet">
+          <a href="#" class="nav-btnListaPet">...</a>
+          <a class="pageListaPet" href="#">1</a>
+          <a class="pageListaPet" href="#">2</a>
+          <a class="pageListaPet" href="#">3</a>
+          <a href="#" class="nav-btnListaPet">...</a>
+        </div>
+      </div>
+    </div>
+</main>
+<footer th:replace="~{base :: BaseFooterPage}"></footer>
 </body>
 </html>
