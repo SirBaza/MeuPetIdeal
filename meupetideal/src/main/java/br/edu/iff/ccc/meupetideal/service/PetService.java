@@ -12,12 +12,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.iff.ccc.meupetideal.entities.Pet;
+import br.edu.iff.ccc.meupetideal.repository.PetRepository;
 
 @Service
 public class PetService {
 
     private final ArrayList<Pet> pets = new ArrayList<>(); 
     private final AtomicLong idGenerator = new AtomicLong(1);
+    private final PetRepository petRepository;
+
+    public PetService(PetRepository petRepository) {
+        this.petRepository = petRepository;
+    }
+
+    public Pet findByNome(String nome) {
+        Pet pet = petRepository.findByNome(nome);
+        return pet != null ? pet : null;
+    }
     
    
     public Pet buscarPetPorId(Long id) {
