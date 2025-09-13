@@ -3,19 +3,17 @@ package br.edu.iff.ccc.meupetideal.controller.view;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.BindingResult;
-import org.springframework.util.StringUtils;
 import jakarta.validation.Valid;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.iff.ccc.meupetideal.service.OngService;
 import br.edu.iff.ccc.meupetideal.entities.Ong;
@@ -24,8 +22,12 @@ import br.edu.iff.ccc.meupetideal.entities.Ong;
 @RequestMapping("MeuPetIdeal")
 public class OngControllerView {
 
-    @Autowired
-    private OngService ongService;
+    private final OngService ongService;
+    private static final String UPLOAD_DIR = "src/main/resources/static/imgs/";
+
+    public OngControllerView(OngService ongService) {
+        this.ongService = ongService;
+    }
 
     @GetMapping("/ong")
     public String getListaOng(
@@ -34,28 +36,24 @@ public class OngControllerView {
             @RequestParam(value = "cidade", required = false) String cidade,
             @RequestParam(value = "atuacao", required = false) String atuacao
     ) {
-        ArrayList<Ong> ongs = ongService.buscarOngsFiltrados(pesquisa, cidade, atuacao);
+        List<Ong> ongs = ongService.buscarOngsFiltrados(pesquisa, cidade, atuacao);
         model.addAttribute("ongs", ongs);
-        model.addAttribute("pesquisa", pesquisa);
-        model.addAttribute("cidade", cidade);
-        model.addAttribute("atuacao", atuacao);
         return "listaOng";
     }
 
     @GetMapping("/informacoesOng/{id}")
     public String getInformacoesOng(@PathVariable Long id, Model model) {
-        Ong found = ongService.buscarOngPorId(id);
-        if (found == null) {
-            found = new Ong();
-            found.setImagem("ong-exemplo.jpg");
+        Ong ong = ongService.buscarOngPorId(id);
+        if (ong == null) {
+            return "redirect:/MeuPetIdeal/ong";
         }
-        model.addAttribute("ong", found);
+        model.addAttribute("ong", ong);
         return "informacoesOng";
     }
 
     @GetMapping("/cadastroOng")
     public String formCadastroOng(Model model) {
-        if (!model.containsAttribute("ong")) model.addAttribute("ong", new Ong());
+        model.addAttribute("ong", new Ong());
         return "cadastroOng";
     }
 
@@ -71,38 +69,29 @@ public class OngControllerView {
             return "cadastroOng";
         }
 
-        if (foto != null && !foto.isEmpty()) {
-            String uploadDir = "src/main/resources/static/imgs/";
-            String fileName = StringUtils.cleanPath(foto.getOriginalFilename());
-            Path filePath = Paths.get(uploadDir + fileName);
-
-            try {
-                // Salva a imagem no diretório especificado
-                Files.createDirectories(Paths.get(uploadDir)); // Cria o diretório, se não existir
-                Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-                // Define o caminho relativo da imagem na entidade ONG
-                ong.setImagem("/imgs/" + fileName);
-            } catch (IOException e) {
-                model.addAttribute("mensagemErro", "Erro ao salvar a foto: " + e.getMessage());
-                return "cadastroOng";
+        try {
+            if (foto != null && !foto.isEmpty()) {
+                String caminhoFoto = salvarArquivoFoto(foto);
+                ong.setImagem(caminhoFoto);
             }
+            ongService.salvarOng(ong);
+            redirect.addFlashAttribute("msg", "ONG cadastrada com sucesso.");
+        } catch (IOException e) {
+            model.addAttribute("mensagemErro", "Erro ao salvar a foto: " + e.getMessage());
+            return "cadastroOng";
         }
-
-        ongService.salvarOng(ong);
-        redirect.addFlashAttribute("msg", "ONG cadastrada com sucesso.");
+        
         return "redirect:/MeuPetIdeal/ong";
     }
 
-    // formulário de edição (reusa cadastroOng)
     @GetMapping("/editarOng/{id}")
     public String editarOngForm(@PathVariable Long id, Model model, RedirectAttributes redirect) {
-        Ong found = ongService.buscarOngPorId(id);
-        if (found == null) {
+        Ong ong = ongService.buscarOngPorId(id);
+        if (ong == null) {
             redirect.addFlashAttribute("msg", "ONG não encontrada.");
             return "redirect:/MeuPetIdeal/ong";
         }
-        model.addAttribute("ong", found);
+        model.addAttribute("ong", ong);
         return "editarOng";
     }
 
@@ -117,22 +106,18 @@ public class OngControllerView {
         if (bindingResult.hasErrors()) {
             return "editarOng";
         }
-
+        ong.setId(id); // Garante que estamos atualizando a ONG correta
         try {
             if (foto != null && !foto.isEmpty()) {
-                String uploadDir = "src/main/resources/static/imgs/";
-                String fileName = StringUtils.cleanPath(foto.getOriginalFilename());
-                Path filePath = Paths.get(uploadDir + fileName);
-
-                // Salva a nova imagem no diretório especificado
-                Files.createDirectories(Paths.get(uploadDir)); // Cria o diretório, se não existir
-                Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-                // Define o caminho relativo da imagem na entidade ONG
-                ong.setImagem("/imgs/" + fileName);
+                String caminhoFoto = salvarArquivoFoto(foto);
+                ong.setImagem(caminhoFoto);
+            } else {
+                // Mantém a imagem antiga se nenhuma nova for enviada
+                Ong ongExistente = ongService.buscarOngPorId(id);
+                if (ongExistente != null) {
+                    ong.setImagem(ongExistente.getImagem());
+                }
             }
-
-            // Atualiza a ONG no serviço
             ongService.salvarOng(ong);
             redirect.addFlashAttribute("msg", "ONG atualizada com sucesso!");
         } catch (IOException e) {
@@ -142,17 +127,25 @@ public class OngControllerView {
         return "redirect:/MeuPetIdeal/ong";
     }
 
-    // exclusão via POST
     @PostMapping("/excluirOng/{id}")
     public String excluirOng(@PathVariable Long id, RedirectAttributes redirect) {
-        boolean removed = ongService.excluirOng(id);
-        if (removed) {
+        try {
+            ongService.excluirOng(id);
             redirect.addFlashAttribute("msg", "ONG excluída com sucesso.");
-        } else {
-            redirect.addFlashAttribute("msg", "Não foi possível excluir a ONG.");
+        } catch (Exception e) {
+            redirect.addFlashAttribute("msg", "Não foi possível excluir a ONG. Verifique se ela não possui pets associados.");
         }
         return "redirect:/MeuPetIdeal/ong";
-
     }
-    
+
+    private String salvarArquivoFoto(MultipartFile foto) throws IOException {
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        String fileName = foto.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        return "/imgs/" + fileName;
+    }
 }

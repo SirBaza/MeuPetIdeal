@@ -34,9 +34,10 @@ public class Pet implements Serializable {
     private String nome;
 
     
-    @NotEmpty(message = "A raça é obrigatória!")
-    @Size(min = 2, max = 50)
-    private String raca;
+    @NotNull(message = "A raça é obrigatória!")
+    @ManyToOne
+    @JoinColumn(name = "raca_id")
+    private Raca raca;
 
     @NotEmpty(message = "A descrição é obrigatória!")
     private String descricao;
@@ -45,111 +46,63 @@ public class Pet implements Serializable {
     private int idade; // Idade em anos
     
     @ManyToOne
-    @NotNull
-    @JoinColumn(name = "ong_id", nullable = false)
+    @NotNull(message = "A ONG é obrigatória!")
+    @JoinColumn(name = "ong_id")
     private Ong ong;
 
-    @NotEmpty(message = "O tipo é obrigatório!")
-    private String tipo;
+    @NotNull(message = "O tipo é obrigatório!")
+    @ManyToOne
+    @JoinColumn(name = "tipo_id")
+    private Tipo tipo;
+
+    @NotEmpty(message = "O sexo é obrigatório!")
+    private String sexo;
     
-    
+    //Aqui vai ser armazenado o caminho de onde a foto será salva.
     private String foto;
 
     public Pet() {
         // Default constructor
     }
 
-    public Pet(String nome, String raca, String descricao, int idade, Ong ong, String tipo, String foto) {
-        this.nome = nome;
-        this.raca = raca;
-        this.descricao = descricao;
-        this.idade = idade;
-        this.ong = ong;
-        this.tipo = tipo;
-        this.foto = foto;
-    }
+    // Getters e Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public Raca getRaca() { return raca; }
+    public void setRaca(Raca raca) { this.raca = raca; }
 
-    public String getRaca() {
-        return raca;
-    }
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    public void setRaca(String raca) {
-        this.raca = raca;
-    }
+    public int getIdade() { return idade; }
+    public void setIdade(int idade) { this.idade = idade; }
 
-    public Long getId() {
-        return id;
-    }
+    public Ong getOng() { return ong; }
+    public void setOng(Ong ong) { this.ong = ong; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Tipo getTipo() { return tipo; }
+    public void setTipo(Tipo tipo) { this.tipo = tipo; }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public Ong getOng() {
-        return ong;
-    }
-
-
-    public void setOng(Ong ong) {
-        this.ong = ong;
-    }
-
-    public String getTipo()
-    { 
-        return tipo;
-    }
-
-    public void setTipo(String tipo)
-    {
-        this.tipo = tipo;
-    }
+    public String getSexo() { return sexo; }
+    public void setSexo(String sexo) { this.sexo = sexo; }
     
-    public String getFoto()
-    {
-        return foto;
-    }
-
-    public void setFoto(String foto)
-    {
-        this.foto = foto;
-    }
+    public String getFoto() { return foto; }
+    public void setFoto(String foto) { this.foto = foto; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Pet)) return false;
         Pet pet = (Pet) o;
-        return Objects.equals(nome, pet.nome) && Objects.equals(raca, pet.raca);
+        return Objects.equals(id, pet.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, raca);
+        return Objects.hash(id);
     }
 }
