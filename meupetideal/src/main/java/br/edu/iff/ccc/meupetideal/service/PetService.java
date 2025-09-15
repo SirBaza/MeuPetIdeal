@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.iff.ccc.meupetideal.entities.Pet;
 import br.edu.iff.ccc.meupetideal.entities.Tipo;
-import br.edu.iff.ccc.meupetideal.exception.PetValidationException;
+import br.edu.iff.ccc.meupetideal.exception.PetNotFoundException;
 import br.edu.iff.ccc.meupetideal.repository.PetRepository;
 import br.edu.iff.ccc.meupetideal.repository.TipoRepository;
 
@@ -56,12 +56,12 @@ public class PetService {
     public Pet salvarPet(Pet pet, MultipartFile fotoArquivo) throws IOException {
         // 1. Validação do Arquivo de Imagem movida para o Service
         if (fotoArquivo == null || fotoArquivo.isEmpty()) {
-            throw new PetValidationException("Por favor, envie uma foto do pet.");
+            throw new PetNotFoundException("Por favor, envie uma foto do pet.");
         }
 
         String contentType = fotoArquivo.getContentType();
         if (contentType == null || (!contentType.equals("image/jpeg") && !contentType.equals("image/png"))) {
-            throw new PetValidationException("Formato de arquivo inválido. Use apenas JPG ou PNG.");
+            throw new PetNotFoundException("Formato de arquivo inválido. Use apenas JPG ou PNG.");
         }
 
         // 2. Lógica de negócio para salvar o arquivo e o pet

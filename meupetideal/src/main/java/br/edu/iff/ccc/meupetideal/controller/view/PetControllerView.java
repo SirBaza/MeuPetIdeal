@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.iff.ccc.meupetideal.entities.Pet;
 import br.edu.iff.ccc.meupetideal.entities.Raca;
+import br.edu.iff.ccc.meupetideal.exception.PetNotFoundException;
 import br.edu.iff.ccc.meupetideal.exception.PetValidationException;
 import br.edu.iff.ccc.meupetideal.service.OngService;
 import br.edu.iff.ccc.meupetideal.service.PetService;
@@ -23,13 +24,14 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping(path = "MeuPetIdeal")
 public class PetControllerView {
-    
+
     private final PetService petService;
     private final OngService ongService;
     private final TipoService tipoService;
     private final RacaService racaService;
 
-    public PetControllerView(PetService petService, OngService ongService, TipoService tipoService, RacaService racaService) {
+    public PetControllerView(PetService petService, OngService ongService, TipoService tipoService,
+            RacaService racaService) {
         this.petService = petService;
         this.ongService = ongService;
         this.tipoService = tipoService;
@@ -65,13 +67,13 @@ public class PetControllerView {
         return "cadastroPet";
     }
 
-     @PostMapping("/cadastroPet")
+    @PostMapping("/cadastroPet")
     public String postCadastro(@Valid @ModelAttribute("pet") Pet pet,
-                               BindingResult bindingResult,
-                               @RequestParam("fotoArquivo") MultipartFile fotoArquivo,
-                               Model model,
-                               RedirectAttributes redirect) {
-        
+            BindingResult bindingResult,
+            @RequestParam("fotoArquivo") MultipartFile fotoArquivo,
+            Model model,
+            RedirectAttributes redirect) {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("ongs", ongService.listarOngs());
             model.addAttribute("tipos", tipoService.listarTipos());
@@ -101,6 +103,7 @@ public class PetControllerView {
     /**
      * MÉTODO ADICIONADO
      * Este é o endpoint que o JavaScript (fetch) da sua página de cadastro chama.
+     * 
      * @param tipoId O ID do tipo de pet, capturado da URL.
      * @return Uma lista de Raças em formato JSON.
      */
@@ -120,8 +123,8 @@ public class PetControllerView {
         }
         return "redirect:/MeuPetIdeal/listaPet";
     }
-    
-     @GetMapping("/editarPet/{id}")
+
+    @GetMapping("/editarPet/{id}")
     public String editarPetForm(@PathVariable Long id, Model model, RedirectAttributes redirect) {
         Pet pet = petService.buscarPetPorId(id);
         if (pet == null) {
@@ -137,11 +140,11 @@ public class PetControllerView {
 
     @PostMapping("/editarPet/{id}")
     public String editarPet(@PathVariable Long id,
-                            @Valid @ModelAttribute("pet") Pet pet,
-                            BindingResult bindingResult,
-                            @RequestParam(value = "foto", required = false) MultipartFile foto,
-                            Model model,
-                            RedirectAttributes redirect) {
+            @Valid @ModelAttribute("pet") Pet pet,
+            BindingResult bindingResult,
+            @RequestParam(value = "foto", required = false) MultipartFile foto,
+            Model model,
+            RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("ongs", ongService.listarOngs());
             model.addAttribute("tipos", tipoService.listarTipos());
@@ -158,17 +161,27 @@ public class PetControllerView {
 
         return "redirect:/MeuPetIdeal/listaPet";
     }
-    
+
     // NOVO MÉTODO PARA A PÁGINA DE INFORMAÇÕES
     @GetMapping("/informacoesPet/{id}")
-    public String getInfoPet(@PathVariable Long id, Model model, RedirectAttributes redirect) {
+    public String getInfoPet(@PathVariable Long id, Model model) {
         Pet pet = petService.buscarPetPorId(id);
         if (pet == null) {
-            redirect.addFlashAttribute("mensagemErro", "Pet não encontrado com o ID: " + id);
-            return "redirect:/MeuPetIdeal/listaPet";
+            throw new PetNotFoundException(id);
         }
         model.addAttribute("pet", pet);
         return "informacoesPet";
+    }
+
+    // ENDPOINT SIMPLIFICADO PARA DETALHES DO PET
+    @GetMapping("/pet/{id}")
+    public String getDetalhePet(@PathVariable Long id, Model model) {
+        Pet pet = petService.buscarPetPorId(id);
+        if (pet == null) {
+            throw new PetNotFoundException(id);
+        }
+        model.addAttribute("pet", pet);
+        return "informacoesPet"; // Reutiliza o mesmo template
     }
 
     @GetMapping("/resultadoCadastro")
