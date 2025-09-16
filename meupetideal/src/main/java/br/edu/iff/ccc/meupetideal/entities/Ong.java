@@ -1,20 +1,19 @@
 package br.edu.iff.ccc.meupetideal.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 import org.springframework.format.annotation.NumberFormat;
 
-import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Email;
 
 
 @Entity
@@ -31,9 +30,10 @@ public class Ong implements Serializable {
 
     @NotNull @NotEmpty @Size(min = 2, max = 100)
     private String endereco;
-
+    //!!!!!*Duvida !!!!!*/
+    //Será que é necessário ter um atributo listaPets em Ong?
     @OneToMany(mappedBy = "ong")
-    private ArrayList<Pet> pets; // mantenha seu tipo Pet se existir
+    private List<Pet> pets;
 
     private String imagem;
 
@@ -91,16 +91,26 @@ public class Ong implements Serializable {
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Ong)) return false;
-        Ong ong = (Ong) o;
-        return Objects.equals(id, ong.id);
-    }
+   public List<Pet> getPets()
+   {
+    return pets;
+   }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+   public void setPets(List<Pet> pets)
+   {
+    this.pets = pets;
+   }
+
+    // @Override
+    // public boolean equals(Object o) {
+    //     if (this == o) return true;
+    //     if (!(o instanceof Ong)) return false;
+    //     Ong ong = (Ong) o;
+    //     return Objects.equals(id, ong.id);
+    // }
+
+    // @Override
+    // public int hashCode() {
+    //     return Objects.hash(id);
+    // }
 }
