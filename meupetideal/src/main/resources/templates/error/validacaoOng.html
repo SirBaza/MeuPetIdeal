@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{base :: baseHead}">
+    <title>Erro de Validação ONG - MeuPetIdeal</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header th:replace="~{base :: baseHeaderPage}"></header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="error-container">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+
+                <h1 class="error-title">Erro de Validação da ONG</h1>
+
+                <div class="error-message">
+                    <p th:text="${errorMessage}">Ocorreu um erro de validação ao processar os dados da ONG.</p>
+                </div>
+
+                <div class="error-details">
+                    <div class="error-info">
+                        <strong>URL:</strong> <span th:text="${url}"></span>
+                    </div>
+                    <div class="error-info">
+                        <strong>Horário:</strong> <span
+                            th:text="${#temporals.format(timestamp, 'dd/MM/yyyy HH:mm:ss')}"></span>
+                    </div>
+                </div>
+
+                <div class="error-suggestions">
+                    <h3>O que você pode fazer:</h3>
+                    <ul>
+                        <li>Verificar se o nome da ONG foi preenchido (mínimo 2 caracteres)</li>
+                        <li>Verificar se o endereço/cidade foi informado</li>
+                        <li>Verificar se o e-mail está no formato correto</li>
+                        <li>Verificar se todos os campos obrigatórios foram preenchidos</li>
+                        <li>Tentar novamente com dados válidos</li>
+                        <li>Entrar em contato conosco se o erro persistir</li>
+                    </ul>
+                </div>
+
+                <div class="error-actions">
+                    <button onclick="history.back()" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Voltar e Tentar Novamente
+                    </button>
+                    <a href="/MeuPetIdeal/cadastroOng" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Novo Cadastro
+                    </a>
+                    <a href="/MeuPetIdeal/" class="btn btn-outline">
+                        <i class="fas fa-home"></i> Voltar ao Início
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{base :: BaseFooterPage}"></footer>
+
+    <style>
+        .error-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            color: #ffa500;
+            margin-bottom: 1rem;
+        }
+
+        .error-title {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .error-message {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            color: #856404;
+        }
+
+        .error-details {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .error-info {
+            margin: 0.5rem 0;
+        }
+
+        .error-info strong {
+            color: #495057;
+        }
+
+        .error-suggestions {
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+
+        .error-suggestions h3 {
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-suggestions ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .error-suggestions li {
+            margin: 0.5rem 0;
+            color: #6c757d;
+        }
+
+        .error-actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+        }
+
+        .btn-outline:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .error-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</body>
+
+</html>

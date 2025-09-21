@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Raca implements Serializable {
@@ -24,6 +25,7 @@ public class Raca implements Serializable {
     private String nome;
 
     //uma raça, ou conjunto de raças pertencem a 1 tipo.
+    @JsonBackReference
     @ManyToOne
     @NotNull
     @JoinColumn(name = "tipo_Id", nullable = false)

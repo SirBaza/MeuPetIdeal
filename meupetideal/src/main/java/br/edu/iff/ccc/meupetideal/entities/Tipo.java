@@ -8,10 +8,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.List;
 
 @Entity
 public class Tipo implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +24,10 @@ public class Tipo implements Serializable {
 
     @Column(unique = true, nullable = false)
     private String nome;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "tipo")
+    private List<Raca> racas;
 
     public Tipo() {}
 
@@ -31,6 +40,8 @@ public class Tipo implements Serializable {
     public void setId(Long id) { this.id = id; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
+    public List<Raca> getRacas() { return racas; }
+    public void setRacas(List<Raca> racas) { this.racas = racas; }
    
 
     @Override
@@ -45,4 +56,6 @@ public class Tipo implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }

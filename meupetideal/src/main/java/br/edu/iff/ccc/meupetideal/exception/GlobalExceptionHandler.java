@@ -35,4 +35,29 @@ public class GlobalExceptionHandler {
 
         return modelAndView;
     }
+
+    @ExceptionHandler(OngNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView handleOngNotFoundException(OngNotFoundException ex, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("error/ongNaoEncontrada");//caminho da view
+
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        modelAndView.addObject("ongId", ex.getOngId());
+        modelAndView.addObject("url", request.getRequestURL().toString());
+        modelAndView.addObject("timestamp", java.time.LocalDateTime.now());
+
+        return modelAndView;
+    }
+
+    @ExceptionHandler(OngValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ModelAndView handleOngValidationException(OngValidationException ex, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("error/validacaoOng"); //caminho da view
+
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        modelAndView.addObject("url", request.getRequestURL().toString());
+        modelAndView.addObject("timestamp", java.time.LocalDateTime.now());
+
+        return modelAndView;
+    }
 }

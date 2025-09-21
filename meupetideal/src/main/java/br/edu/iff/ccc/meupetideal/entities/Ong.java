@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -32,6 +33,7 @@ public class Ong implements Serializable {
     private String endereco;
     //!!!!!*Duvida !!!!!*/
     //Será que é necessário ter um atributo listaPets em Ong?
+    @JsonManagedReference
     @OneToMany(mappedBy = "ong")
     private List<Pet> pets;
 
