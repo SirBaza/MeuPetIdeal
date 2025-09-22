@@ -31,7 +31,10 @@ public class PetService {
 
     public Pet buscarPetPorId(Long id) {
         Optional<Pet> pet = petRepository.findById(id);
-        return pet.orElse(null);
+        if (pet.isEmpty()) {
+            throw new PetNotFoundException("Pet não encontrado com ID: " + id);
+        }
+        return pet.get();
     }
 
     public List<Pet> listarPets() {
@@ -53,10 +56,22 @@ public class PetService {
         return tipo.map(petRepository::findByTipo).orElseGet(List::of);
     }
 
+    // Método para salvar pet sem foto (usado pelo endpoint JSON)
+    public Pet salvarPet(Pet pet) {
+        // Se o pet já tem uma foto definida (como URL ou Base64), mantém
+        // Se não tem foto, deixa como null
+        if (pet.getFoto() == null || pet.getFoto().trim().isEmpty()) {
+            pet.setFoto(null);
+        }
+        return petRepository.save(pet);
+    }
+
+    // Método para salvar pet com foto (usado pelo endpoint multipart)
     public Pet salvarPet(Pet pet, MultipartFile fotoArquivo) throws IOException {
-        // 1. Validação do Arquivo de Imagem movida para o Service
+        // Se não há arquivo, salva pet sem foto
         if (fotoArquivo == null || fotoArquivo.isEmpty()) {
-            throw new PetNotFoundException("Por favor, envie uma foto do pet.");
+            pet.setFoto(null);
+            return petRepository.save(pet);
         }
 
         String contentType = fotoArquivo.getContentType();
@@ -64,7 +79,7 @@ public class PetService {
             throw new PetNotFoundException("Formato de arquivo inválido. Use apenas JPG ou PNG.");
         }
 
-        // 2. Lógica de negócio para salvar o arquivo e o pet
+        // Lógica de negócio para salvar o arquivo e o pet
         String caminhoFoto = salvarArquivoFoto(fotoArquivo);
         pet.setFoto(caminhoFoto);
         
@@ -73,11 +88,8 @@ public class PetService {
 
     //função para atualizar um pet existente
     public Pet atualizarPet(Long id, Pet dadosNovos, MultipartFile foto) throws IOException {
-        Pet petExistente = buscarPetPorId(id);
-        if (petExistente == null) {
-            throw new RuntimeException("Pet não encontrado com id: " + id);
-        }
-
+        Pet petExistente = buscarPetPorId(id); // Agora lança exceção se não encontrar
+        
         petExistente.setNome(dadosNovos.getNome());
         petExistente.setRaca(dadosNovos.getRaca());
         petExistente.setDescricao(dadosNovos.getDescricao());

@@ -1,11 +1,15 @@
 package br.edu.iff.ccc.meupetideal.service;
 
-import br.edu.iff.ccc.meupetideal.entities.Ong;
-import br.edu.iff.ccc.meupetideal.repository.OngRepository;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import br.edu.iff.ccc.meupetideal.entities.Ong;
+import br.edu.iff.ccc.meupetideal.exception.OngNotFoundException;
+import br.edu.iff.ccc.meupetideal.exception.OngValidationException;
+import br.edu.iff.ccc.meupetideal.repository.OngRepository;
 
 @Service
 public class OngService {
@@ -17,14 +21,42 @@ public class OngService {
     }
 
     public Ong salvarOng(Ong ong) {
-        return ongRepository.save(ong); 
+        validarOng(ong);
+        return ongRepository.save(ong);
     }
 
+    private void validarOng(Ong ong) {
+        if (ong == null) {
+            throw new OngValidationException("Dados da ONG não podem ser nulos.");
+        }
+        if (ong.getNome() == null || ong.getNome().trim().isEmpty()) {
+            throw new OngValidationException("Nome da ONG é obrigatório.");
+        }
+        if (ong.getEndereco() == null || ong.getEndereco().trim().isEmpty()) {
+            throw new OngValidationException("Endereço da ONG é obrigatório.");
+        }
+        if (ong.getFundacao() == null || ong.getFundacao().trim().isEmpty()) {
+            throw new OngValidationException("Ano de fundação da ONG é obrigatório.");
+        }
+        if (ong.getAtuacao() == null || ong.getAtuacao().trim().isEmpty()) {
+            throw new OngValidationException("Área de atuação da ONG é obrigatória.");
+        }
+    }    
+    
     public void excluirOng(Long id) {
+        if (!ongRepository.existsById(id)) {
+            throw new OngNotFoundException(id);
+        }
         ongRepository.deleteById(id);
     }
 
     public Ong buscarOngPorId(Long id) {
+        Optional<Ong> ong = ongRepository.findById(id);
+        return ong.orElseThrow(() -> new OngNotFoundException(id));
+    }
+
+    // Método alternativo que retorna null (para casos onde não queremos exception)
+    public Ong buscarOngPorIdOpcional(Long id) {
         Optional<Ong> ong = ongRepository.findById(id);
         return ong.orElse(null);
     }

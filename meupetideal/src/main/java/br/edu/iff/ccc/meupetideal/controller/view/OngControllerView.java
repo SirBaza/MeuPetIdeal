@@ -1,13 +1,5 @@
 package br.edu.iff.ccc.meupetideal.controller.view;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.validation.BindingResult;
-import jakarta.validation.Valid;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,8 +7,23 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-import br.edu.iff.ccc.meupetideal.service.OngService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import br.edu.iff.ccc.meupetideal.entities.Ong;
+import br.edu.iff.ccc.meupetideal.exception.OngNotFoundException;
+import br.edu.iff.ccc.meupetideal.exception.OngValidationException;
+import br.edu.iff.ccc.meupetideal.service.OngService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("MeuPetIdeal")
@@ -43,10 +50,7 @@ public class OngControllerView {
 
     @GetMapping("/informacoesOng/{id}")
     public String getInformacoesOng(@PathVariable Long id, Model model) {
-        Ong ong = ongService.buscarOngPorId(id);
-        if (ong == null) {
-            return "redirect:/MeuPetIdeal/ong";
-        }
+        Ong ong = ongService.buscarOngPorId(id); // Agora lança exception se não encontrar
         model.addAttribute("ong", ong);
         return "informacoesOng";
     }
@@ -76,6 +80,9 @@ public class OngControllerView {
             }
             ongService.salvarOng(ong);
             redirect.addFlashAttribute("msg", "ONG cadastrada com sucesso.");
+        } catch (OngValidationException e) {
+            model.addAttribute("mensagemErro", "Erro de validação: " + e.getMessage());
+            return "cadastroOng";
         } catch (IOException e) {
             model.addAttribute("mensagemErro", "Erro ao salvar a foto: " + e.getMessage());
             return "cadastroOng";
@@ -86,7 +93,7 @@ public class OngControllerView {
 
     @GetMapping("/editarOng/{id}")
     public String editarOngForm(@PathVariable Long id, Model model, RedirectAttributes redirect) {
-        Ong ong = ongService.buscarOngPorId(id);
+        Ong ong = ongService.buscarOngPorIdOpcional(id); // Usa o método que não lança exception
         if (ong == null) {
             redirect.addFlashAttribute("msg", "ONG não encontrada.");
             return "redirect:/MeuPetIdeal/ong";
@@ -113,13 +120,15 @@ public class OngControllerView {
                 ong.setImagem(caminhoFoto);
             } else {
                 // Mantém a imagem antiga se nenhuma nova for enviada
-                Ong ongExistente = ongService.buscarOngPorId(id);
+                Ong ongExistente = ongService.buscarOngPorIdOpcional(id);
                 if (ongExistente != null) {
                     ong.setImagem(ongExistente.getImagem());
                 }
             }
             ongService.salvarOng(ong);
             redirect.addFlashAttribute("msg", "ONG atualizada com sucesso!");
+        } catch (OngValidationException e) {
+            redirect.addFlashAttribute("msg", "Erro de validação: " + e.getMessage());
         } catch (IOException e) {
             redirect.addFlashAttribute("msg", "Erro ao atualizar a ONG: " + e.getMessage());
         }
@@ -132,6 +141,8 @@ public class OngControllerView {
         try {
             ongService.excluirOng(id);
             redirect.addFlashAttribute("msg", "ONG excluída com sucesso.");
+        } catch (OngNotFoundException e) {
+            redirect.addFlashAttribute("msg", "ONG não encontrada: " + e.getMessage());
         } catch (Exception e) {
             redirect.addFlashAttribute("msg", "Não foi possível excluir a ONG. Verifique se ela não possui pets associados.");
         }

@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class Tipo implements Serializable {
     @Column(unique = true, nullable = false)
     private String nome;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "tipo")
     private List<Raca> racas;
 

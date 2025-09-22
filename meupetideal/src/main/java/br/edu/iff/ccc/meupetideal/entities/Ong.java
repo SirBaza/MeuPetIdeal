@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +16,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 
 @Entity
@@ -31,9 +34,8 @@ public class Ong implements Serializable {
 
     @NotNull @NotEmpty @Size(min = 2, max = 100)
     private String endereco;
-    //!!!!!*Duvida !!!!!*/
-    //Será que é necessário ter um atributo listaPets em Ong?
-    @JsonManagedReference
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "ong")
     private List<Pet> pets;
 
