@@ -232,6 +232,35 @@ public class RestApiPetsController {
         }
     }
 
+    @GetMapping(path = "/pets/search")
+    public ResponseEntity<List<Pet>> searchPets(@RequestParam(required = false) String busca) {
+        try {
+            List<Pet> pets = petService.buscarPetsFiltrados(busca);
+            if (pets.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(pets);
+        } catch (Exception e) {
+            System.out.println("ERRO ao buscar pets: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // Endpoint para filtrar pets por tipo
+    @GetMapping(path = "/pets/tipo/{tipo}")
+    public ResponseEntity<List<Pet>> getPetsByTipo(@PathVariable String tipo) {
+        try {
+            List<Pet> petsFiltrados = petService.filtrarPorTipo(tipo);
+            if (petsFiltrados.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(petsFiltrados);
+        } catch (Exception e) {
+            System.out.println("ERRO ao filtrar pets por tipo: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }
 
 
