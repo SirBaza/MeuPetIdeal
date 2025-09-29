@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: baseHead}">
+  <link rel="stylesheet" th:href="@{/css/informacoesOng.css}">
+  <title th:text="${ong.nome}">Informações da ONG</title>
+</head>
+<body>
+<header th:replace="~{base :: baseHeaderPage}"></header>
+
+<main>
+  <div class="layout-content-container">
+    <div class="ong-header">
+      <img th:src="${ong.imagem}" th:alt="${ong.nome}" alt="Imagem ONG"/>
+      <div class="info">
+        <h1 th:text="${ong.nome}">Nome da ONG</h1>
+        <p><strong>Cidade:</strong> <span th:text="${ong.endereco}">Cidade</span></p>
+        <p><strong>Fundada em:</strong> <span th:text="${ong.fundacao}">2010</span></p>
+        <p><strong>Atuação:</strong> <span th:text="${ong.atuacao}">Resgate e Adoção</span></p>
+      </div>
+    </div>
+
+    <div class="ong-description">
+      <h2>Sobre a ONG</h2>
+      <p th:text="${ong.descricao}">Descrição da ONG</p>
+    </div>
+
+    <div class="ong-contacts">
+      <h2>Contato</h2>
+      <ul>
+        <li th:if="${ong.telefone}"><strong>Telefone:</strong> <span th:text="${ong.telefone}"></span></li>
+        <li th:if="${ong.email}"><strong>E-mail:</strong> <span th:text="${ong.email}"></span></li>
+        <li th:if="${ong.site}"><strong>Site:</strong> <a th:href="${ong.site}" th:text="${ong.site}" target="_blank"></a></li>
+        <li th:if="${ong.instagram}"><strong>Instagram:</strong> <a th:href="${ong.instagram}" th:text="${ong.instagram}" target="_blank"></a></li>
+      </ul>
+    </div>
+
+    <div style="margin-top:12px; display:flex; gap:8px; align-items:center;">
+      <a th:href="@{/MeuPetIdeal/editarOng/{id}(id=${ong.id})}" class="cadastro-ong-submit" style="text-decoration:none; padding:8px 12px;">Editar</a>
+
+      <form th:action="@{/MeuPetIdeal/excluirOng/{id}(id=${ong.id})}" method="post" onsubmit="return confirm('Confirma exclusão desta ONG?');" style="display:inline;">
+        <button type="submit" style="background:#e74c3c;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">Excluir</button>
+      </form>
+    </div>
+
+    <a class="mt-10" th:href="@{/MeuPetIdeal/ong}">← Voltar para lista de ONGs</a>
+  </div>
+</main>
+
+<footer th:replace="~{base :: BaseFooterPage}"></footer>
+</body>
+</html>

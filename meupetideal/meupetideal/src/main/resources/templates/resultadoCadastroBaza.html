@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado do Cadastro</title>
+</head>
+<body>
+<h1 th:text="${mensagem}"></h1>
+
+<p><a th:href="@{/pet/cadastroPet}">Cadastrar outro pet</a></p>
+<p><a th:href="@{/pet/listaPet}">Ver lista de pets</a></p>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: baseHead}"></head>
+<body>
+<header th:replace="~{base :: baseHeaderPage}"></header>
+<main>
+    <div class="container" style="max-width: 800px; margin: 40px auto; padding: 20px;">
+        
+        <div th:if="${pet != null}">
+            <h2 th:text="${pet.nome}">Nome do Pet</h2>
+            <hr/>
+            <div class="pet-details" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div class="pet-image" style="flex: 1 1 300px;">
+                    <img th:if="${pet.foto != null}" th:src="${pet.foto}" th:alt="|Foto de ${pet.nome}|" style="width: 100%; border-radius: 12px;">
+                    <div th:unless="${pet.foto != null}" style="width: 100%; height: 300px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #666;">
+                        <span>Sem foto disponível</span>
+                    </div>
+                </div>
+                <div class="pet-info" style="flex: 1 1 400px;">
+                    <p><strong>Idade:</strong> <span th:text="${pet.idade}"></span> anos</p>
+                    <p><strong>Sexo:</strong> <span th:text="${pet.sexo}"></span></p>
+                    <p><strong>Tipo:</strong> <span th:text="${pet.tipo?.nome}"></span></p>
+                    <p><strong>Raça:</strong> <span th:text="${pet.raca?.nome}"></span></p>
+                    <p><strong>Descrição:</strong> <span th:text="${pet.descricao}"></span></p>
+                    <p><strong>ONG Responsável:</strong> <span th:text="${pet.ong?.nome}"></span></p>
+                </div>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 30px; display: flex; gap: 15px;">
+                <a th:href="@{/MeuPetIdeal/editarPet/{id}(id=${pet.id})}" class="btn btn-primary">Editar Pet</a>
+                
+                <form th:action="@{/MeuPetIdeal/excluirPet/{id}(id=${pet.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja apagar este pet?');">
+                    <button type="submit" class="btn btn-danger">Apagar Pet</button>
+                </form>
+            </div>
+        </div>
+
+        <div th:if="${pet == null}">
+            <h2>Pet não encontrado</h2>
+            <p>O pet que você está procurando não existe ou foi removido.</p>
+            <a th:href="@{/MeuPetIdeal/listaPet}">Voltar para a lista</a>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{base :: BaseFooterPage}"></footer>
+</body>
+</html>

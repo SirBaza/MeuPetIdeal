@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: baseHead}"></head>
+<body>
+<header th:replace="~{base :: baseHeaderPage}"></header>
+<main>
+    <section class="cadastro-pet">
+        <div class="container">
+            <h2>Edite Seu Pet!</h2>
+            <form class="cadastro-pet-card" th:action="@{/MeuPetIdeal/editarPet/{id}(id=${pet.id})}" th:object="${pet}" method="post" enctype="multipart/form-data">
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" th:field="*{nome}" />
+                    <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color:red"></div>
+                </div>
+                <div>
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" th:field="*{tipo.id}" required>
+                        <option value="">Selecione um Tipo</option>
+                        <option th:each="t : ${tipos}" th:value="${t.id}" th:text="${t.nome}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label for="raca">Raça:</label>
+                    <select id="raca" th:field="*{raca.id}" required>
+                        <option value="">Selecione uma Raça</option>
+                        <option th:each="r : ${racas}" th:value="${r.id}" th:text="${r.nome}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" th:field="*{idade}" />
+                    <div th:if="${#fields.hasErrors('idade')}" th:errors="*{idade}" style="color:red"></div>
+                </div>
+                <div>
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" th:field="*{sexo}" required>
+                        <option value="">Selecione o Sexo</option>
+                        <option value="Macho">Macho</option>
+                        <option value="Fêmea">Fêmea</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}" style="color:red"></div>
+                </div>
+                <div>
+                    <label for="descricao">Descrição:</label>
+                    <textarea id="descricao" th:field="*{descricao}"></textarea>
+                    <div th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" style="color:red"></div>
+                </div>
+                <div>
+                    <label for="ong">ONG Responsável:</label>
+                    <select id="ong" th:field="*{ong.id}" required>
+                        <option value="">Selecione uma ONG</option>
+                        <option th:each="o : ${ongs}" th:value="${o.id}" th:text="${o.nome}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('ong')}" th:errors="*{ong}" style="color:red"></div>
+                </div>
+                <div>
+                    <label for="foto">Alterar foto (opcional):</label>
+                    <input type="file" id="foto" name="foto" accept="image/*" />
+                    <div th:if="${pet.foto}">
+                        <p>Foto atual:</p>
+                        <img th:src="${pet.foto}" alt="Foto do pet" style="max-height: 150px;"/>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </section>     
+</main>
+<footer th:replace="~{base :: BaseFooterPage}"></footer>
+</body>
+</html>
