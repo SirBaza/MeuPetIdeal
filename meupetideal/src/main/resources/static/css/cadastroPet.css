@@ -1,0 +1,310 @@
+/* RESET E ESTILOS GLOBAIS */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffdaa4 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* SEÇÃO PRINCIPAL */
+.cadastro-pet {
+  padding: 60px 20px;
+  min-height: calc(100vh - 200px);
+}
+
+.cadastro-pet .container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* TÍTULO PRINCIPAL */
+.cadastro-pet h2 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  border-radius: 25px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.cadastro-pet h2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="70" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+  pointer-events: none;
+}
+
+/* FORMULÁRIO */
+.cadastro-pet form {
+  background: white;
+  border-radius: 25px;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.cadastro-pet form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 183, 77, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 152, 0, 0.05) 0%, transparent 50%);
+  border-radius: 25px;
+  pointer-events: none;
+}
+
+/* CAMPOS DO FORMULÁRIO */
+.cadastro-pet form > div {
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.cadastro-pet label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #e65100;
+  font-size: 1.1rem;
+}
+
+.cadastro-pet input[type="text"],
+.cadastro-pet input[type="number"],
+.cadastro-pet input[type="file"],
+.cadastro-pet select,
+.cadastro-pet textarea {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e9ecef;
+  border-radius: 15px;
+  font-size: 16px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.cadastro-pet input[type="text"]:focus,
+.cadastro-pet input[type="number"]:focus,
+.cadastro-pet select:focus,
+.cadastro-pet textarea:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+  background: white;
+}
+
+/* SELECT ESPECIAL */
+.cadastro-pet select {
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ff9800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9"></polyline></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 20px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.cadastro-pet select:disabled {
+  background-color: #f1f3f4;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #ddd;
+}
+
+/* TEXTAREA */
+.cadastro-pet textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* CAMPO DE ARQUIVO */
+.cadastro-pet input[type="file"] {
+  padding: 12px 15px;
+  background: white;
+  border: 2px dashed #ff9800;
+  cursor: pointer;
+  position: relative;
+}
+
+.cadastro-pet input[type="file"]:hover {
+  border-color: #f57c00;
+  background: #fff8e1;
+}
+
+.cadastro-pet input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+}
+
+.cadastro-pet input[type="file"]::file-selector-button:hover {
+  background: linear-gradient(135deg, #f57c00, #e65100);
+  transform: translateY(-1px);
+}
+
+/* BOTÃO DE SUBMIT */
+.cadastro-pet button[type="submit"] {
+  width: 100%;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  border: none;
+  padding: 18px 30px;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(245, 124, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.cadastro-pet button[type="submit"]:hover {
+  background: linear-gradient(135deg, #f57c00, #e65100);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(245, 124, 0, 0.4);
+}
+
+.cadastro-pet button[type="submit"]:active {
+  transform: translateY(-1px);
+}
+
+/* MENSAGENS DE ERRO */
+.cadastro-pet span[style*="color:red"] {
+  display: block !important;
+  background: #f8d7da !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb !important;
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+  margin-top: 5px !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+/* ESTADOS DE LOADING */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #ff9800;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .cadastro-pet {
+    padding: 40px 15px;
+  }
+  
+  .cadastro-pet h2 {
+    font-size: 2.2rem;
+    padding: 30px 15px;
+  }
+  
+  .cadastro-pet form {
+    padding: 25px;
+    border-radius: 20px;
+  }
+  
+  .cadastro-pet input[type="text"],
+  .cadastro-pet input[type="number"],
+  .cadastro-pet input[type="file"],
+  .cadastro-pet select,
+  .cadastro-pet textarea {
+    padding: 12px 15px;
+    font-size: 16px; /* Previne zoom no iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .cadastro-pet h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cadastro-pet form {
+    padding: 20px;
+  }
+  
+  .cadastro-pet button[type="submit"] {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+  }
+}
+
+/* MELHORIAS VISUAIS EXTRAS */
+.cadastro-pet form > div:nth-child(odd) {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.cadastro-pet form > div:nth-child(even) {
+  animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* FOCO VISUAL MELHORADO */
+.cadastro-pet input:focus,
+.cadastro-pet select:focus,
+.cadastro-pet textarea:focus {
+  transform: translateY(-2px);
+}
