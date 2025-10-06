@@ -2,64 +2,106 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{base :: baseHead}"></head>
 <body>
-
     <header th:replace="~{base :: baseHeaderPage}"></header>
-
     <main>
         <section class="cadastro-pet">
             <div class="container">
                 <h2>Cadastro de Pet para Adoção</h2>
-
-                <form th:action="@{/MeuPetIdeal/cadastroPet}" 
-                th:object="${pet}" 
-                method="post" 
-                enctype="multipart/form-data">
-                
-
+                <form th:action="@{/MeuPetIdeal/cadastroPet}" th:object="${pet}" method="post" enctype="multipart/form-data">
                     <div>
                         <label for="nome">Nome:</label>
                         <input type="text" id="nome" th:field="*{nome}"/>
                         <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color:red"></span>
                     </div>
-
+                    <div>
+                        <label for="tipo">Tipo:</label>
+                        <select id="tipo" th:field="*{tipo.id}" required>
+                            <option value="">Selecione um Tipo</option>
+                            <option th:each="t : ${tipos}" th:value="${t.id}" th:text="${t.nome}"></option>
+                        </select>
+                    </div>
                     <div>
                         <label for="raca">Raça:</label>
-                        <input type="text" id="raca" th:field="*{raca}"/>
-                        <span th:if="${#fields.hasErrors('raca')}" th:errors="*{raca}" style="color:red"></span>
+                        <!-- CORREÇÃO: Campo começa desabilitado e com a mensagem correta -->
+                        <select id="raca" th:field="*{raca.id}" required disabled>
+                            <option value="">Selecione um tipo primeiro</option>
+                        </select>
                     </div>
+                    
+                    <!-- SCRIPT APRIMORADO -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const tipoSelect = document.getElementById('tipo');
+                            const racaSelect = document.getElementById('raca');
+
+                            tipoSelect.addEventListener('change', function() {
+                                const tipoId = this.value;
+                                
+                                // Limpa as opções de raça
+                                racaSelect.innerHTML = ''; 
+
+                                if (tipoId) {
+                                    // Habilita o select de raça e mostra mensagem de carregamento
+                                    racaSelect.disabled = false;
+                                    racaSelect.innerHTML = '<option value="">Carregando raças...</option>';
+
+                                    // Busca as raças correspondentes
+                                    fetch(`/MeuPetIdeal/racasPorTipo/${tipoId}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        racaSelect.innerHTML = '<option value="">Selecione uma Raça</option>'; // Opção padrão
+                                        data.forEach(raca => {
+                                            const option = document.createElement('option');
+                                            option.value = raca.id;
+                                            option.textContent = raca.nome;
+                                            racaSelect.appendChild(option);
+                                        });
+                                    })
+                                    .catch(error => {
+                                        console.error('Erro ao buscar raças:', error);
+                                        racaSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+                                    });
+                                } else {
+                                    // Se nenhum tipo for selecionado, desabilita e reseta o select de raça
+                                    racaSelect.innerHTML = '<option value="">Selecione um tipo primeiro</option>';
+                                    racaSelect.disabled = true;
+                                }
+                            });
+                        });
+                    </script>
 
                     <div>
                         <label for="idade">Idade:</label>
                         <input type="number" id="idade" th:field="*{idade}"/>
                         <span th:if="${#fields.hasErrors('idade')}" th:errors="*{idade}" style="color:red"></span>
                     </div>
-
+                    <div>
+                        <label for="sexo">Sexo:</label>
+                        <select id="sexo" th:field="*{sexo}" required>
+                            <option value="">Selecione o Sexo</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Fêmea">Fêmea</option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}" style="color:red"></span>
+                    </div>
                     <div>
                         <label for="descricao">Descrição:</label>
                         <textarea id="descricao" th:field="*{descricao}"></textarea>
                         <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" style="color:red"></span>
                     </div>
-                    
                     <div>
                         <label for="ong">ONG Responsável:</label>
                         <select id="ong" th:field="*{ong.id}" required>
-                        <option value="">Selecione uma ONG</option>
-                        <option th:each="o : ${ongs}" th:value="${o.id}" th:text="${o.nome}"></option>
+                            <option value="">Selecione uma ONG</option>
+                            <option th:each="o : ${ongs}" th:value="${o.id}" th:text="${o.nome}"></option>
                         </select>
                         <span th:if="${#fields.hasErrors('ong')}" th:errors="*{ong}" style="color:red"></span>
                     </div>
-
-                    <div>
-                        <label for="tipo">Tipo:</label>
-                        <input type="text" id="tipo" th:field="*{tipo}"/>
-                        <span span th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}" style="color:red"></span>
-                    </div>
-
                     <div>
                         <label for="foto">Insira a foto:</label>
-                        <input type="file" id="foto" name="foto" accept="image/*"/> <!--Tipo de input que recebe arquivo, mas que só aceita arquivos de imagem.-->
+                        <input type="file" id="foto" name="fotoArquivo" accept="image/*"/>
+                        <span th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}" style="color:red"></span>
                     </div>
-                    
                     <div>
                         <button type="submit">Cadastrar</button>
                     </div>
@@ -67,9 +109,6 @@
             </div>
         </section>     
     </main>
-
-    <!-- Corrigido: use exatamente o mesmo nome do fragmento no base.html -->
     <footer th:replace="~{base :: BaseFooterPage}"></footer>
-
 </body>
 </html>

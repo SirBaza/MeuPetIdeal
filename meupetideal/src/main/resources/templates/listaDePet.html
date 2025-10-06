@@ -10,8 +10,7 @@
           <p class="titleListaPet">Encontre seu novo amigo!</p>
         </div>
 
-        <!-- Barra de busca -->
-        <form th:action="@{/MeuPetIdeal/listaPet}" method="post">
+        <form th:action="@{/MeuPetIdeal/listaPet}" method="get">
           <div class="search-boxListaPet">
             <label class="search-labelListaPet">
               <div class="search-input-wrapperListaPet">
@@ -20,50 +19,37 @@
                     <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
                   </svg>
                 </div>
-                <input type="text"
-                       name="busca"
-                       placeholder="Procure pets por nome, raça ou tipo"
-                       class="search-inputListaPet"/>
+                <input type="text" name="busca" placeholder="Procure pets por nome, raça ou tipo" class="search-inputListaPet"/>
               </div>
             </label>
             <button type="submit">Buscar</button>
           </div>
         </form>
 
-        <!-- Filtros -->
         <div class="filter-buttonsListaPet">
           <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Cachorro'">Cachorros</button>
           <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Gato'">Gatos</button>
-          <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Animais Pequenos'">Animais Pequenos</button>
           <button type="button" onclick="window.location.href='/MeuPetIdeal/listaPet/tipo/Pássaro'">Pássaros</button>
         </div>
 
-        <!-- Mensagem de erro -->
         <div th:if="${mensagemErro}" style="color:red; margin:10px 0;">
             <p th:text="${mensagemErro}"></p>
         </div>
 
-        <!--Mostruário dos pets-->
         <div class="lista-pets-grid" style="margin-top:20px; display:grid; grid-template-columns: repeat(auto-fill,minmax(250px,1fr)); gap:20px;">
-          <div class="pet-card" th:each="pet : ${pets}" style="border:1px solid #ccc; border-radius:12px; padding:15px;">
-            <img th:src="@{${pet.fotoUrl}}" alt="Foto de [[${pet.getNome}]]" style="width:100%; border-radius:8px;">
-            <h3 th:text="${pet.nome}">Nome do Pet</h3>
-            <p><b>Raça:</b> <span th:text="${pet.raca}">Raça</span></p>
-            <p><b>Idade:</b> <span th:text="${pet.idade}">Idade</span> anos</p>
-            <p><b>Descrição:</b> <span th:text="${pet.descricao}">Descrição</span></p>
-            <p><b>ONG:</b> <span th:text="${pet.ong.getNome}">ONG</span></p>
-            
-            <a th:href="@{/MeuPetIdeal/editarPet/{id}(id=${pet.id})}" class="botaoEditarlistaDePet">Editar Pet</a>
-
-            <form th:action="@{/MeuPetIdeal/excluirPet/{id}(id=${pet.id})}" method="post"
-            onsubmit="return confirm('Tem certeza que deseja apagar este pet?');">
-            <button type="submit" class="botaoDeletarlistaDePet">Apagar Pet</button>
-
-            </form>
-          </div>
+          <!-- O CARD INTEIRO AGORA É UM LINK -->
+          <a th:href="@{/MeuPetIdeal/informacoesPet/{id}(id=${pet.id})}" class="pet-card-link" th:each="pet : ${pets}" style="text-decoration: none; color: inherit;">
+            <div class="pet-card" style="border:1px solid #ccc; border-radius:12px; padding:15px; height: 100%;">
+              <img th:if="${pet.foto != null}" th:src="${pet.foto}" th:alt="|Foto de ${pet.nome}|" style="width:100%; height: 200px; object-fit: cover; border-radius:8px;">
+              <div th:unless="${pet.foto != null}" style="width:100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius:8px; color: #666;">
+                <span>Sem foto</span>
+              </div>
+              <h3 th:text="${pet.nome}" style="margin-top: 10px;">Nome do Pet</h3>
+              <p><b>Idade:</b> <span th:text="${pet.idade}">Idade</span> anos</p>
+            </div>
+          </a>
         </div>
 
-        <!-- Paginação -->
         <div class="paginationListaPet">
           <a href="#" class="nav-btnListaPet">...</a>
           <a class="pageListaPet" href="#">1</a>

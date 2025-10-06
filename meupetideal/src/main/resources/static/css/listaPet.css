@@ -1,166 +1,407 @@
+/* RESET E ESTILOS GLOBAIS */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffdaa4 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .containerListaPet {
-  padding: 20px 40px;
+  padding: 40px 20px;
   display: flex;
   justify-content: center;
+  min-height: calc(100vh - 200px);
 }
 
 .layout-contentListaPet {
-  max-width: 960px;
+  max-width: 1200px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 30px;
 }
 
 .headerListaPet {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  border-radius: 25px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.headerListaPet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+  pointer-events: none;
 }
 
 .titleListaPet {
-  color: #131712;
-  font-size: 32px;
-  font-weight: bold;
+  color: white;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 1;
 }
 
+/* SEÇÃO DE BUSCA */
 .search-boxListaPet {
-  padding: 12px 16px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 15px;
+  align-items: end;
 }
 
 .search-labelListaPet {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 48px;
+  flex: 1;
 }
 
 .search-input-wrapperListaPet {
   display: flex;
-  width: 100%;
   align-items: center;
-  background: #f1f4f1;
-  border-radius: 8px;
+  background: #f8f9fa;
+  border-radius: 15px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+  height: 55px;
+}
+
+.search-input-wrapperListaPet:focus-within {
+  border-color: #ff9800;
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
 }
 
 .search-iconListaPet {
-  color: #6d8566;
-  padding-left: 12px;
+  color: #ff9800;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
 }
 
 .search-inputListaPet {
   flex: 1;
   border: none;
-  background: #f1f4f1;
-  padding: 0 12px;
+  background: transparent;
+  padding: 15px 15px 15px 0;
   font-size: 16px;
-  color: #131712;
-}
-
-.search-input:focusListaPet {
+  color: #333;
   outline: none;
 }
 
+.search-inputListaPet::placeholder {
+  color: #999;
+}
+
+.search-boxListaPet button {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(245, 124, 0, 0.3);
+}
+
+.search-boxListaPet button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 124, 0, 0.4);
+}
+
+/* FILTROS */
 .filter-buttonsListaPet {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 12px;
+  justify-content: center;
+  gap: 15px;
+  padding: 0;
 }
 
-.filter-btnListaPet {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f1f4f1;
-  border-radius: 8px;
-  padding: 4px 12px;
-  border: none;
-  cursor: pointer;
-}
-
-.filter-btnListaPet p {
-  color: #131712;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.pet-gridListaPet {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
-  gap: 12px;
-  padding: 16px;
-}
-
-.pet-cardListaPet {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-bottom: 12px;
-}
-
-.pet-imageListaPet {
-  aspect-ratio: 1 / 1;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-}
-
-.pet-nameListaPet {
+.filter-buttonsListaPet button {
+  background: white;
+  color: #ff9800;
+  border: 2px solid #ff9800;
+  border-radius: 25px;
+  padding: 12px 25px;
   font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.filter-buttonsListaPet button:hover {
+  background: #ff9800;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
+}
+
+/* GRID DE PETS */
+.lista-pets-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  gap: 25px !important;
+  margin-top: 0 !important;
+}
+
+.pet-card-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: transform 0.3s ease;
+}
+
+.pet-card-link:hover {
+  transform: translateY(-5px);
+}
+
+.pet-card {
+  background: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 0 !important;
+  height: auto !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pet-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 152, 0, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pet-card:hover::before {
+  opacity: 1;
+}
+
+.pet-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important;
+}
+
+.pet-card img {
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+  transition: transform 0.3s ease;
+}
+
+.pet-card:hover img {
+  transform: scale(1.05);
+}
+
+.pet-card div[style*="background-color: #f0f0f0"] {
+  width: 100% !important;
+  height: 220px !important;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  color: #999 !important;
+  font-size: 18px;
   font-weight: 500;
-  color: #131712;
 }
 
-.pet-infoListaPet {
-  font-size: 14px;
-  color: #6d8566;
+.pet-card h3 {
+  margin: 20px 20px 10px 20px !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: #e65100 !important;
 }
 
+.pet-card p {
+  margin: 0 20px 20px 20px !important;
+  color: #666 !important;
+  font-size: 1rem !important;
+}
+
+.pet-card p b {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+/* PAGINAÇÃO */
 .paginationListaPet {
   display: flex;
   justify-content: center;
-  gap: 4px;
-  padding: 16px;
+  gap: 10px;
+  padding: 40px 16px;
+  margin-top: 40px;
 }
 
 .pageListaPet {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  color: #131712;
+  color: #ff9800;
   text-decoration: none;
+  background: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.pageListaPet:hover {
+  background: #ff9800;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
 }
 
 .page.activeListaPet {
-  background: #f1f4f1;
-  font-weight: bold;
+  background: #ff9800 !important;
+  color: white !important;
+  font-weight: 700;
 }
 
 .nav-btnListaPet {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   align-items: center;
   justify-content: center;
+  color: #ff9800;
+  text-decoration: none;
+  background: white;
+  border-radius: 50%;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.botaoDeletarlistaDePet{
-display:inline-block; 
-padding:8px 12px; 
-background-color:red; 
-color:white; 
-border-radius:5px; 
-text-decoration:none;
+.nav-btnListaPet:hover {
+  background: #ff9800;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
 }
 
-.botaoEditarlistaDePet{
-display:inline-block; 
-padding:8px 12px; 
-background-color:rgb(255, 196, 70); 
-color:white; 
-border-radius:5px; 
-text-decoration:none;
+/* BOTÕES DE AÇÃO */
+.botaoDeletarlistaDePet {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.botaoDeletarlistaDePet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.botaoEditarlistaDePet {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  margin-right: 10px;
+}
+
+.botaoEditarlistaDePet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+/* MENSAGEM DE ERRO */
+div[style*="color:red"] {
+  background: #f8d7da !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb !important;
+  border-radius: 15px !important;
+  padding: 15px 20px !important;
+  margin: 20px 0 !important;
+  font-weight: 500 !important;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .containerListaPet {
+    padding: 20px 15px;
+  }
+  
+  .titleListaPet {
+    font-size: 2.2rem;
+  }
+  
+  .search-boxListaPet {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .search-boxListaPet button {
+    align-self: center;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .lista-pets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleListaPet {
+    font-size: 1.8rem;
+  }
+  
+  .filter-buttonsListaPet {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .filter-buttonsListaPet button {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .lista-pets-grid {
+    grid-template-columns: 1fr !important;
+  }
 }

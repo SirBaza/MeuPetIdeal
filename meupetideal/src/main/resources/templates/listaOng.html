@@ -39,10 +39,10 @@
         <div th:each="ong : ${ongs}">
           <a class="ong-card" th:href="@{/MeuPetIdeal/informacoesOng/{id}(id=${ong.id})}">
             
-            <img class="ong-image"
-            th:src="${ong.imagem}"
-            th:alt="${ong.nome}"
-            alt="Imagem ONG"/>
+            <img th:if="${ong.imagem != null}" class="ong-image" th:src="${ong.imagem}" th:alt="${ong.nome}"/>
+            <div th:unless="${ong.imagem != null}" class="ong-image" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666;">
+              <span>Sem imagem</span>
+            </div>
 
             <h3 th:text="${ong.nome}">Nome ONG</h3>
             <p><b>Cidade:</b> <span th:text="${ong.endereco}">Cidade</span></p>
